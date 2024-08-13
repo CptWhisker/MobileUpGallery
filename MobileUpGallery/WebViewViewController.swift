@@ -17,6 +17,7 @@ final class WebViewViewController: UIViewController {
     }()
     private var estimatedProgressObservation: NSKeyValueObservation?
     private let configuration: AuthConfiguration = .standart
+    private let tokenStorage = AccessTokenStorage.shared
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -103,17 +104,18 @@ final class WebViewViewController: UIViewController {
         
         return parameters["access_token"]
     }
-    
-    
 }
 
 // MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let accessToken = getAccessToken(from: navigationAction) {
+            tokenStorage.accessToken = accessToken
+            
             let galleryViewController = GalleryViewController()
             let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)
             galleryNavigationController.modalPresentationStyle = .fullScreen
+            
             present(galleryNavigationController, animated: true) {
                 decisionHandler(.cancel)
             }
