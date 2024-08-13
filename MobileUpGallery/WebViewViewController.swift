@@ -16,6 +16,7 @@ final class WebViewViewController: UIViewController {
         return progressView
     }()
     private var estimatedProgressObservation: NSKeyValueObservation?
+    private let configuration: AuthConfiguration = .standart
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -66,20 +67,20 @@ final class WebViewViewController: UIViewController {
     
     // MARK: - Loading Auth View
     private func loadAuthView() {
-        guard var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize") else {
-            print("Error: Unable to create URLComponents from unsplashAuthorizeURLString")
-            return
-        }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = configuration.urlComponentsScheme
+        urlComponents.host = configuration.urlComponentsHost
+        urlComponents.path = configuration.urlComponentsPath
         
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: "52136813"),
-            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "display", value: "mobile"),
-            URLQueryItem(name: "response_type", value: "token")
+            URLQueryItem(name: "client_id", value: configuration.clientID),
+            URLQueryItem(name: "redirect_uri", value: configuration.redirectURI),
+            URLQueryItem(name: "display", value: configuration.display),
+            URLQueryItem(name: "response_type", value: configuration.responseType)
         ]
         
         guard let url = urlComponents.url else {
-            print("Error: Unable to create URL from urlComponents")
+            print("ERROR")
             return
         }
         
@@ -90,7 +91,7 @@ final class WebViewViewController: UIViewController {
     // MARK: - Extracting Access Token
     private func getAccessToken(from navigationAction: WKNavigationAction) -> String? {
         guard let url = navigationAction.request.url,
-              url.path == "/blank.html",
+              url.path == configuration.navigationActionPath,
               let fragment = url.fragment else {
             return nil
         }
