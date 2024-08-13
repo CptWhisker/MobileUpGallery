@@ -104,15 +104,19 @@ final class WebViewViewController: UIViewController {
         return parameters["access_token"]
     }
     
-
+    
 }
 
 // MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let accessToken = getAccessToken(from: navigationAction) {
-            print(accessToken)
-            decisionHandler(.cancel)
+            let galleryViewController = GalleryViewController()
+            let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)
+            galleryNavigationController.modalPresentationStyle = .fullScreen
+            present(galleryNavigationController, animated: true) {
+                decisionHandler(.cancel)
+            }
         } else {
             decisionHandler(.allow)
         }
