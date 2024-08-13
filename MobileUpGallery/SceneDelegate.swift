@@ -16,8 +16,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = AuthViewController()
+        
+        let initialViewController: UIViewController
+        
+        if isTokenReceived(AccessTokenStorage.shared.accessToken) {
+            initialViewController = UINavigationController(rootViewController: GalleryViewController())
+        } else {
+            initialViewController = AuthViewController()
+        }
+        window?.rootViewController = initialViewController
         window?.makeKeyAndVisible()
+    }
+    
+    private func isTokenReceived(_ token: String?) -> Bool {
+        return token != nil
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,7 +59,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
+    
 }
 
