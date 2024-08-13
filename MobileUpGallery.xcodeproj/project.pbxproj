@@ -15,6 +15,7 @@
 		CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4089E2C6BBBC100E88229 /* WebViewViewController.swift */; };
 		CEF408A12C6BEBC900E88229 /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A02C6BEBC900E88229 /* AuthConfiguration.swift */; };
 		CEF408A32C6BF1DF00E88229 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */; };
+		CEF408A62C6BF61300E88229 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF408A62C6BF61300E88229 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			dependencies = (
 			);
 			name = MobileUpGallery;
+			packageProductDependencies = (
+				CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */,
+			);
 			productName = MobileUpGallery;
 			productReference = CEF408872C6AB73400E88229 /* MobileUpGallery.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +122,9 @@
 				Base,
 			);
 			mainGroup = CEF4087E2C6AB73400E88229;
+			packageReferences = (
+				CEF408A42C6BF61300E88229 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+			);
 			productRefGroup = CEF408882C6AB73400E88229 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -369,6 +377,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEF408A42C6BF61300E88229 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEF408A42C6BF61300E88229 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEF4087F2C6AB73400E88229 /* Project object */;
 }
