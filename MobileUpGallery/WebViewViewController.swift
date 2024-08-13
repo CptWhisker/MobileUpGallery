@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 
 final class WebViewViewController: UIViewController {
+    // MARK: - Properties
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.navigationDelegate = self
@@ -16,6 +17,7 @@ final class WebViewViewController: UIViewController {
     }()
     private var estimatedProgressObservation: NSKeyValueObservation?
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,7 @@ final class WebViewViewController: UIViewController {
         loadPage()
     }
     
+    // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .white
         
@@ -52,6 +55,7 @@ final class WebViewViewController: UIViewController {
         ])
     }
     
+    // MARK: - Private Methods
     private func addObserverForLoadingBar() {
         estimatedProgressObservation = webView.observe(\.estimatedProgress, options: []) { [weak self] _, _ in
             guard let self else { return }
@@ -79,6 +83,7 @@ final class WebViewViewController: UIViewController {
     }
 }
 
+// MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     
 }

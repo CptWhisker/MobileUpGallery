@@ -75,8 +75,6 @@ final class AuthViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func loginButtonTapped() {
-        // TODO: Implement login functonality
-        print("LOGIN")
         let webViewViewController = WebViewViewController()
         present(webViewViewController, animated: true, completion: nil)
     }
