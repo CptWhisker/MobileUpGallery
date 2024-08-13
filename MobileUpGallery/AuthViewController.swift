@@ -1,6 +1,6 @@
 import UIKit
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
     // MARK: - Layout Constraints
     private struct Layout {
         static let titleTopMargin: CGFloat = 170
@@ -77,6 +77,8 @@ class AuthViewController: UIViewController {
     @objc private func loginButtonTapped() {
         // TODO: Implement login functonality
         print("LOGIN")
+        let webViewViewController = WebViewViewController()
+        present(webViewViewController, animated: true, completion: nil)
     }
 }
 
