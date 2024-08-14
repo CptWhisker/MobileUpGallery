@@ -21,6 +21,7 @@
 		CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */; };
 		CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */; };
 		CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */; };
+		CEF408DD2C6D576C00E88229 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408DC2C6D576C00E88229 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF408DD2C6D576C00E88229 /* Kingfisher in Frameworks */,
 				CEF408A62C6BF61300E88229 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,6 +110,7 @@
 			name = MobileUpGallery;
 			packageProductDependencies = (
 				CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */,
+				CEF408DC2C6D576C00E88229 /* Kingfisher */,
 			);
 			productName = MobileUpGallery;
 			productReference = CEF408872C6AB73400E88229 /* MobileUpGallery.app */;
@@ -139,6 +142,7 @@
 			mainGroup = CEF4087E2C6AB73400E88229;
 			packageReferences = (
 				CEF408A42C6BF61300E88229 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				CEF408DB2C6D576C00E88229 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = CEF408882C6AB73400E88229 /* Products */;
 			projectDirPath = "";
@@ -407,6 +411,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		CEF408DB2C6D576C00E88229 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -414,6 +426,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CEF408A42C6BF61300E88229 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
+		};
+		CEF408DC2C6D576C00E88229 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEF408DB2C6D576C00E88229 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
