@@ -1,6 +1,8 @@
 import UIKit
 
 final class GalleryViewController: UIViewController {
+    private var photos = [Photo]()
+    private let photosNetworkService = PhotosNetworkService()
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Фото", "Видео"])
         control.selectedSegmentIndex = 0
@@ -32,6 +34,7 @@ final class GalleryViewController: UIViewController {
         super.viewDidLoad()
         
         configureInterface()
+        loadPhotos()
     }
     
     private func configureInterface() {
@@ -75,6 +78,21 @@ final class GalleryViewController: UIViewController {
         ])
         
         videosCollectionView.isHidden = true
+    }
+    
+    private func loadPhotos() {
+        photosNetworkService.fetchPhotos() { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let photos):
+                    self.photos = photos
+                    self.photosCollectionView.reloadData()
+                case .failure(let error):
+                    print("ERROR", error)
+                }
+            }
+        }
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
