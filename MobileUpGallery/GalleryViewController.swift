@@ -78,16 +78,8 @@ final class GalleryViewController: UIViewController {
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            photosCollectionView.isHidden = false
-            videosCollectionView.isHidden = true
-        case 1:
-            photosCollectionView.isHidden = true
-            videosCollectionView.isHidden = false
-        default:
-            break
-        }
+        photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
+        videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
     }
     
     @objc private func logoutTapped() {
