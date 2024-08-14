@@ -3,14 +3,15 @@ import UIKit
 final class PhotosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
+    private let configuration: PhotosRequestConfiguration = .mobileUpWall
+    private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         return decoder
     }()
-    private let configuration: PhotosRequestConfiguration = .mobileUpOffice
         
     // MARK: - Public Methods
-        func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
+    func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
             guard let accessToken = AccessTokenStorage.shared.accessToken else {
                 print("ERROR")
                 return
@@ -25,7 +26,9 @@ final class PhotosNetworkService {
                 URLQueryItem(name: "owner_id", value: configuration.ownerID),
                 URLQueryItem(name: "album_id", value: configuration.albumID),
                 URLQueryItem(name: "access_token", value: accessToken),
-                URLQueryItem(name: "v", value: configuration.version)
+                URLQueryItem(name: "v", value: configuration.version),
+                URLQueryItem(name: "offset", value: "\(offset)"),
+                URLQueryItem(name: "count", value: "\(configuration.count)")
             ]
             
             guard let url = urlComponents.url else {
@@ -36,7 +39,7 @@ final class PhotosNetworkService {
             let request = URLRequest(url: url)
             
             let task = session.dataTask(with: request) { data, response, error in
-                if let error {
+                if error != nil {
                     completion(.failure(NetworkServiceError.dataTaskError))
                     return
                 }
@@ -50,9 +53,7 @@ final class PhotosNetworkService {
                     completion(.failure(NetworkServiceError.dataFetchError))
                     return
                 }
-                
-//                print(String(decoding: data, as: UTF8.self))
-                
+                                
                 do {
                     let response = try self.decoder.decode(VKPhotosResponse.self, from: data)
                     completion(.success(response.response.items))
@@ -63,4 +64,8 @@ final class PhotosNetworkService {
             
             task.resume()
         }
+    
+    func increaseOffset() {
+        offset += configuration.count
+    }
 }

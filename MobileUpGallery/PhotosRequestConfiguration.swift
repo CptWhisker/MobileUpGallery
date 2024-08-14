@@ -1,4 +1,3 @@
-
 import Foundation
 
 struct PhotosRequestConfiguration {
@@ -8,6 +7,7 @@ struct PhotosRequestConfiguration {
     let ownerID: String
     let albumID: String
     let version: String
+    let count: Int
     
     static var mobileUpWall = PhotosRequestConfiguration(
         scheme: "https",
@@ -15,7 +15,8 @@ struct PhotosRequestConfiguration {
         path: "/method/photos.get",
         ownerID: "-128666765",
         albumID: "wall",
-        version: "5.131"
+        version: "5.131",
+        count: 10
     )
     
     static var mobileUpOffice = PhotosRequestConfiguration(
@@ -24,7 +25,8 @@ struct PhotosRequestConfiguration {
         path: "/method/photos.get",
         ownerID: "-128666765",
         albumID: "266276915",
-        version: "5.131"
+        version: "5.131",
+        count: 10
     )
     
     init(
@@ -33,7 +35,8 @@ struct PhotosRequestConfiguration {
         path: String,
         ownerID: String,
         albumID: String,
-        version: String
+        version: String,
+        count: Int
     ) {
         self.scheme = scheme
         self.host = host
@@ -41,5 +44,6 @@ struct PhotosRequestConfiguration {
         self.ownerID = ownerID
         self.albumID = albumID
         self.version = version
+        self.count = count
     }
 }

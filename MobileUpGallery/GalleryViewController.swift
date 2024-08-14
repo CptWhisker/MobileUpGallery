@@ -4,6 +4,7 @@ final class GalleryViewController: UIViewController {
     // MARK: - Properties
     private var photos = [Photo]()
     private let photosNetworkService = PhotosNetworkService()
+    private var isLoadingPhotos = false
     
     // MARK: - UI Elements
     private lazy var segmentedControl: UISegmentedControl = {
@@ -85,13 +86,19 @@ final class GalleryViewController: UIViewController {
     
     // MARK: - Loading Data
     private func loadPhotos() {
+        guard !isLoadingPhotos else { return }
+                        
+        isLoadingPhotos = true
+        
         photosNetworkService.fetchPhotos() { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
+                self.isLoadingPhotos = false
                 switch result {
-                case .success(let photos):
-                    self.photos = photos
+                case .success(let newPhotos):
+                    self.photos.append(contentsOf: newPhotos)
                     self.photosCollectionView.reloadData()
+                    self.photosNetworkService.increaseOffset()
                 case .failure(let error):
                     print("ERROR", error)
                 }
@@ -163,5 +170,14 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 4
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension GalleryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == photos.count - 6 {
+            loadPhotos()
+        }
     }
 }
