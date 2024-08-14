@@ -10,13 +10,19 @@ final class GalleryViewController: UIViewController {
     }()
     private lazy var photosCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         collectionView.backgroundColor = .blue
         return collectionView
     }()
     private lazy var videosCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "VideoCell")
         collectionView.backgroundColor = .yellow
         return collectionView
     }()
@@ -90,5 +96,39 @@ final class GalleryViewController: UIViewController {
         } else {
             view.backgroundColor = .white
         }
+    }
+}
+
+extension GalleryViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuseIdentifier = collectionView == photosCollectionView ? "PhotoCell" : "VideoCell"
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        cell.contentView.backgroundColor = reuseIdentifier == "PhotoCell" ? .yellow : .blue
+        return cell
+    }
+}
+
+extension GalleryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == photosCollectionView {
+            let side = (collectionView.frame.width / 2) - 2
+            return CGSize(width: side, height: side)
+        } else {
+            let width = collectionView.frame.width
+            return CGSize(width: width, height: width * 0.56)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
     }
 }
