@@ -18,6 +18,7 @@
 		CEF408A62C6BF61300E88229 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */; };
 		CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */; };
 		CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D32C6D480800E88229 /* VKResponseBody.swift */; };
+		CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenStorage.swift; sourceTree = "<group>"; };
 		CEF408D32C6D480800E88229 /* VKResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponseBody.swift; sourceTree = "<group>"; };
+		CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */,
 				CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */,
 				CEF408D32C6D480800E88229 /* VKResponseBody.swift */,
+				CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				CEF4088B2C6AB73400E88229 /* AppDelegate.swift in Sources */,
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,
 				CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */,
+				CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */,
 				CEF408A32C6BF1DF00E88229 /* GalleryViewController.swift in Sources */,
 				CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */,
 				CEF408A12C6BEBC900E88229 /* AuthConfiguration.swift in Sources */,
