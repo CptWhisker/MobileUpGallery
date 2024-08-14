@@ -1,6 +1,7 @@
 import UIKit
 
 final class PhotosNetworkService {
+    // MARK: - Properties
     private let session = URLSession.shared
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -8,6 +9,7 @@ final class PhotosNetworkService {
     }()
     private let configuration: PhotosRequestConfiguration = .mobileUpOffice
         
+    // MARK: - Public Methods
         func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
             guard let accessToken = AccessTokenStorage.shared.accessToken else {
                 print("ERROR")

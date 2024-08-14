@@ -3,6 +3,10 @@ import WebKit
 
 final class WebViewViewController: UIViewController {
     // MARK: - Properties
+    private var estimatedProgressObservation: NSKeyValueObservation?
+    private let configuration: AuthConfiguration = .standart
+    
+    // MARK: - UI Elements
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.navigationDelegate = self
@@ -15,10 +19,7 @@ final class WebViewViewController: UIViewController {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
-    private var estimatedProgressObservation: NSKeyValueObservation?
-    private let configuration: AuthConfiguration = .standart
-    private let tokenStorage = AccessTokenStorage.shared
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +111,7 @@ final class WebViewViewController: UIViewController {
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let accessToken = getAccessToken(from: navigationAction) {
-            tokenStorage.accessToken = accessToken
+            AccessTokenStorage.shared.accessToken = accessToken
             
             let galleryViewController = GalleryViewController()
             let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)

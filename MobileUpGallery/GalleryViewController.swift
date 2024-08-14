@@ -1,8 +1,11 @@
 import UIKit
 
 final class GalleryViewController: UIViewController {
+    // MARK: - Properties
     private var photos = [Photo]()
     private let photosNetworkService = PhotosNetworkService()
+    
+    // MARK: - UI Elements
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Фото", "Видео"])
         control.selectedSegmentIndex = 0
@@ -29,7 +32,7 @@ final class GalleryViewController: UIViewController {
         return collectionView
     }()
     
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +40,7 @@ final class GalleryViewController: UIViewController {
         loadPhotos()
     }
     
+    // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .white
         
@@ -80,6 +84,7 @@ final class GalleryViewController: UIViewController {
         videosCollectionView.isHidden = true
     }
     
+    // MARK: - Loading Data
     private func loadPhotos() {
         photosNetworkService.fetchPhotos() { [weak self] result in
             guard let self else { return }
@@ -95,6 +100,7 @@ final class GalleryViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
@@ -109,6 +115,7 @@ final class GalleryViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -123,6 +130,7 @@ extension GalleryViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == photosCollectionView {

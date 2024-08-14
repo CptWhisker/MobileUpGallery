@@ -25,7 +25,6 @@ struct Photo: Decodable {
     }
 }
 
-
 struct VKPhotoSize: Decodable {
     let type: String
     let url: String
