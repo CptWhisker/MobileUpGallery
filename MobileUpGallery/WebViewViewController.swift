@@ -69,9 +69,9 @@ final class WebViewViewController: UIViewController {
     // MARK: - Loading Auth View
     private func loadAuthView() {
         var urlComponents = URLComponents()
-        urlComponents.scheme = configuration.urlComponentsScheme
-        urlComponents.host = configuration.urlComponentsHost
-        urlComponents.path = configuration.urlComponentsPath
+        urlComponents.scheme = configuration.scheme
+        urlComponents.host = configuration.host
+        urlComponents.path = configuration.path
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: configuration.clientID),

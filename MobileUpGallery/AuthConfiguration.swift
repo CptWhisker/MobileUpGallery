@@ -1,9 +1,9 @@
 import Foundation
 
 struct AuthConfiguration {
-    let urlComponentsScheme: String
-    let urlComponentsHost: String
-    let urlComponentsPath: String
+    let scheme: String
+    let host: String
+    let path: String
     let clientID: String
     let redirectURI: String
     let display: String
@@ -11,9 +11,9 @@ struct AuthConfiguration {
     let navigationActionPath: String
     
     static var standart = AuthConfiguration(
-        urlComponentsScheme: "https",
-        urlComponentsHost: "oauth.vk.com",
-        urlComponentsPath: "/authorize",
+        scheme: "https",
+        host: "oauth.vk.com",
+        path: "/authorize",
         clientID: "52136813",
         redirectURI: "https://oauth.vk.com/blank.html",
         display: "mobile",
@@ -22,18 +22,18 @@ struct AuthConfiguration {
     )
     
     init(
-        urlComponentsScheme: String,
-        urlComponentsHost: String,
-        urlComponentsPath: String,
+        scheme: String,
+        host: String,
+        path: String,
         clientID: String,
         redirectURI: String,
         display: String,
         responseType: String,
         navigationActionPath: String
     ) {
-        self.urlComponentsScheme = urlComponentsScheme
-        self.urlComponentsHost = urlComponentsHost
-        self.urlComponentsPath = urlComponentsPath
+        self.scheme = scheme
+        self.host = host
+        self.path = path
         self.clientID = clientID
         self.redirectURI = redirectURI
         self.display = display
