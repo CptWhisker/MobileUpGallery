@@ -6,6 +6,7 @@ final class PhotosNetworkService {
         let decoder = JSONDecoder()
         return decoder
     }()
+    private let configuration: PhotosRequestConfiguration = .mobileUpOffice
         
         func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
             guard let accessToken = AccessTokenStorage.shared.accessToken else {
@@ -14,15 +15,15 @@ final class PhotosNetworkService {
             }
             
             var urlComponents = URLComponents()
-            urlComponents.scheme = "https"
-            urlComponents.host = "api.vk.com"
-            urlComponents.path = "/method/photos.get"
+            urlComponents.scheme = configuration.scheme
+            urlComponents.host = configuration.host
+            urlComponents.path = configuration.path
             
             urlComponents.queryItems = [
-                URLQueryItem(name: "owner_id", value: "-128666765"),
-                URLQueryItem(name: "album_id", value: "wall"),
+                URLQueryItem(name: "owner_id", value: configuration.ownerID),
+                URLQueryItem(name: "album_id", value: configuration.albumID),
                 URLQueryItem(name: "access_token", value: accessToken),
-                URLQueryItem(name: "v", value: "5.131")
+                URLQueryItem(name: "v", value: configuration.version)
             ]
             
             guard let url = urlComponents.url else {
@@ -60,12 +61,4 @@ final class PhotosNetworkService {
             
             task.resume()
         }
-}
-
-// MARK: - Network Service Errors
-enum NetworkServiceError: Error {
-    case dataTaskError
-    case responseError
-    case dataFetchError
-    case decodingError
 }

@@ -19,6 +19,8 @@
 		CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */; };
 		CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D32C6D480800E88229 /* VKResponseBody.swift */; };
 		CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */; };
+		CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */; };
+		CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenStorage.swift; sourceTree = "<group>"; };
 		CEF408D32C6D480800E88229 /* VKResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponseBody.swift; sourceTree = "<group>"; };
 		CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosNetworkService.swift; sourceTree = "<group>"; };
+		CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRequestConfiguration.swift; sourceTree = "<group>"; };
+		CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceErrors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 				CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */,
 				CEF408D32C6D480800E88229 /* VKResponseBody.swift */,
 				CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */,
+				CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */,
+				CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -160,7 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */,
 				CEF4088F2C6AB73400E88229 /* AuthViewController.swift in Sources */,
+				CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */,
 				CEF4088B2C6AB73400E88229 /* AppDelegate.swift in Sources */,
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,
 				CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */,
