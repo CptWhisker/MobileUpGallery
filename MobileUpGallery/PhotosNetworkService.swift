@@ -3,7 +3,7 @@ import UIKit
 final class PhotosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
-    private let configuration: PhotosRequestConfiguration = .mobileUpWall
+    private let configuration: PhotosRequestConfiguration = .mobileUpOffice
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()

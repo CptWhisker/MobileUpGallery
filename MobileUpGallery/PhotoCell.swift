@@ -6,6 +6,7 @@ final class PhotoCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.backgroundColor = .cellBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -36,6 +37,7 @@ final class PhotoCell: UICollectionViewCell {
               let url = URL(string: urlString)
         else { return }
         
+        imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: url)
     }
 }
