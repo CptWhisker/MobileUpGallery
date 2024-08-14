@@ -18,8 +18,7 @@ final class GalleryViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
-        collectionView.backgroundColor = .blue
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
         return collectionView
     }()
     private lazy var videosCollectionView: UICollectionView = {
@@ -118,14 +117,30 @@ final class GalleryViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == photosCollectionView {
+            return photos.count
+        } else {
+            return 10
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let reuseIdentifier = collectionView == photosCollectionView ? "PhotoCell" : "VideoCell"
         
+        if reuseIdentifier == "PhotoCell" {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PhotoCell else {
+                print("ERROR")
+                return UICollectionViewCell()
+            }
+            
+            let photo = photos[indexPath.item]
+            cell.setPhoto(photo)
+            return cell
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.contentView.backgroundColor = reuseIdentifier == "PhotoCell" ? .yellow : .blue
+        cell.contentView.backgroundColor = .blue
         return cell
     }
 }
