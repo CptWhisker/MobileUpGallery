@@ -2,16 +2,16 @@ import Foundation
 
 // MARK: - Photos Response
 struct VKPhotosResponse: Decodable {
-    let response: VKPhotoResponse
+    let response: Photos
 }
 
-struct VKPhotoResponse: Decodable {
+struct Photos: Decodable {
     let items: [Photo]
 }
 
 struct Photo: Decodable {
     let date: Int
-    let sizes: [VKPhotoSize]
+    let sizes: [PhotoSize]
     
     var thumbURL: String? {
         guard let thumb = sizes.first(where: { $0.type == "q" }) else {
@@ -25,7 +25,7 @@ struct Photo: Decodable {
     }
 }
 
-struct VKPhotoSize: Decodable {
+struct PhotoSize: Decodable {
     let type: String
     let url: String
 }
