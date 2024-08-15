@@ -29,3 +29,26 @@ struct PhotoSize: Decodable {
     let type: String
     let url: String
 }
+
+// MARK: - Videos Response
+struct VKVideosResonse: Decodable {
+    let response: Videos
+}
+
+struct Videos: Decodable {
+    let items: [Video]
+}
+
+struct Video: Decodable {
+    let title: String
+    let player: String
+    let image: [PreviewImage]
+    
+    var previewURL: String? {
+        return image.last?.url
+    }
+}
+
+struct PreviewImage: Decodable {
+    let url: String
+}
