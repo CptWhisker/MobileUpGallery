@@ -24,6 +24,7 @@
 		CEF408DD2C6D576C00E88229 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408DC2C6D576C00E88229 /* Kingfisher */; };
 		CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */; };
 		CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */; };
+		CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E22C6E5E8000E88229 /* VideoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceErrors.swift; sourceTree = "<group>"; };
 		CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkService.swift; sourceTree = "<group>"; };
+		CEF408E22C6E5E8000E88229 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */,
 				CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */,
 				CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */,
+				CEF408E22C6E5E8000E88229 /* VideoCell.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */,
+				CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */,
 				CEF4088F2C6AB73400E88229 /* AuthViewController.swift in Sources */,
 				CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */,
 				CEF4088B2C6AB73400E88229 /* AppDelegate.swift in Sources */,
