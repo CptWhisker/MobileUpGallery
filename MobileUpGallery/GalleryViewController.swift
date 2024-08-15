@@ -3,8 +3,11 @@ import UIKit
 final class GalleryViewController: UIViewController {
     // MARK: - Properties
     private var photos = [Photo]()
+    private var videos = [Video]()
     private let photosNetworkService = PhotosNetworkService()
+    private let videosNetworkService = VideosNetworkService()
     private var isLoadingPhotos = false
+    private var isLoadingVideos = false
     
     // MARK: - UI Elements
     private lazy var segmentedControl: UISegmentedControl = {
@@ -27,8 +30,7 @@ final class GalleryViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "VideoCell")
-        collectionView.backgroundColor = .yellow
+        collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "VideoCell")
         return collectionView
     }()
     
@@ -38,6 +40,7 @@ final class GalleryViewController: UIViewController {
         
         configureInterface()
         loadPhotos()
+        loadVideos()
     }
     
     // MARK: - Interface Configuration
@@ -100,7 +103,28 @@ final class GalleryViewController: UIViewController {
                     self.photosCollectionView.reloadData()
                     self.photosNetworkService.increaseOffset()
                 case .failure(let error):
-                    print("ERROR", error)
+                    print("photosNetworkService ERROR", error)
+                }
+            }
+        }
+    }
+    
+    private func loadVideos() {
+        guard !isLoadingVideos else { return }
+        
+        isLoadingVideos = true
+        
+        videosNetworkService.fetchVideos() { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.isLoadingVideos = false
+                switch result {
+                case .success(let newVideos):
+                    self.videos.append(contentsOf: newVideos)
+                    self.videosCollectionView.reloadData()
+                    self.videosNetworkService.increaseOffset()
+                case .failure(let error):
+                    print("videosNetworkService ERROR", error)
                 }
             }
         }
@@ -110,6 +134,10 @@ final class GalleryViewController: UIViewController {
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
+        
+        if sender.selectedSegmentIndex == 1 && videos.isEmpty {
+            loadVideos()
+        }
     }
     
     @objc private func logoutTapped() {
@@ -127,7 +155,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         if collectionView == photosCollectionView {
             return photos.count
         } else {
-            return 10
+            return videos.count
         }
     }
     
@@ -146,8 +174,13 @@ extension GalleryViewController: UICollectionViewDataSource {
             return cell
         }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.contentView.backgroundColor = .blue
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else {
+            print("ERROR")
+            return UICollectionViewCell()
+        }
+        
+        let video = videos[indexPath.item]
+        cell.setPhotoAndTitle(from: video)
         return cell
     }
 }
@@ -176,8 +209,14 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == photos.count - 6 {
-            loadPhotos()
+        if collectionView == photosCollectionView {
+            if indexPath.item == photos.count - 6 {
+                loadPhotos()
+            }
+        } else {
+            if indexPath.item == videos.count - 2 {
+                loadVideos()
+            }
         }
     }
 }

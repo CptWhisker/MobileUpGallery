@@ -78,7 +78,8 @@ final class WebViewViewController: UIViewController {
             URLQueryItem(name: "client_id", value: configuration.clientID),
             URLQueryItem(name: "redirect_uri", value: configuration.redirectURI),
             URLQueryItem(name: "display", value: configuration.display),
-            URLQueryItem(name: "response_type", value: configuration.responseType)
+            URLQueryItem(name: "response_type", value: configuration.responseType),
+            URLQueryItem(name: "scope", value: "video")
         ]
         
         guard let url = urlComponents.url else {

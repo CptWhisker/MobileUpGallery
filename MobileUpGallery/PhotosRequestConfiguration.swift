@@ -15,7 +15,7 @@ struct PhotosRequestConfiguration {
         path: "/method/photos.get",
         ownerID: "-128666765",
         albumID: "wall",
-        version: "5.131",
+        version: "5.199",
         count: 10
     )
     
@@ -25,7 +25,7 @@ struct PhotosRequestConfiguration {
         path: "/method/photos.get",
         ownerID: "-128666765",
         albumID: "266276915",
-        version: "5.131",
+        version: "5.199",
         count: 10
     )
     
