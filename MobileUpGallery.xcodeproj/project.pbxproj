@@ -25,6 +25,7 @@
 		CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */; };
 		CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */; };
 		CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E22C6E5E8000E88229 /* VideoCell.swift */; };
+		CEF408E72C6EA09600E88229 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E62C6EA09600E88229 /* PhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkService.swift; sourceTree = "<group>"; };
 		CEF408E22C6E5E8000E88229 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		CEF408E62C6EA09600E88229 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */,
 				CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */,
 				CEF408E22C6E5E8000E88229 /* VideoCell.swift */,
+				CEF408E62C6EA09600E88229 /* PhotoViewController.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */,
 				CEF408A12C6BEBC900E88229 /* AuthConfiguration.swift in Sources */,
 				CEF4088D2C6AB73400E88229 /* SceneDelegate.swift in Sources */,
+				CEF408E72C6EA09600E88229 /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

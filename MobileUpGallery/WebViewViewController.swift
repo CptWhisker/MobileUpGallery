@@ -4,7 +4,7 @@ import WebKit
 final class WebViewViewController: UIViewController {
     // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
-    private let configuration: AuthConfiguration = .standart
+    private let configuration: AuthConfiguration = .standard
     
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {

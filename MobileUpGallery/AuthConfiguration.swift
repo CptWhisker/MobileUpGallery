@@ -10,7 +10,7 @@ struct AuthConfiguration {
     let responseType: String
     let navigationActionPath: String
     
-    static var standart = AuthConfiguration(
+    static var standard = AuthConfiguration(
         scheme: "https",
         host: "oauth.vk.com",
         path: "/authorize",

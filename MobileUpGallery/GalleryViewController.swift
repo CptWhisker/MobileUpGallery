@@ -56,6 +56,7 @@ final class GalleryViewController: UIViewController {
         title = "MobileUp Gallery"
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logoutTapped))
+        navigationItem.backButtonTitle = ""
     }
     
     private func configureSegmentedControl() {
@@ -217,6 +218,16 @@ extension GalleryViewController: UICollectionViewDelegate {
             if indexPath.item == videos.count - 2 {
                 loadVideos()
             }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == photosCollectionView {
+            guard let photo = photos[indexPath.item].largeURL else { return }
+            let photoViewController = PhotoViewController(image: photo)
+            navigationController?.pushViewController(photoViewController, animated: true)
+        } else {
+            return
         }
     }
 }
