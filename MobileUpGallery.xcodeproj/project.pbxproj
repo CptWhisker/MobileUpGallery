@@ -28,6 +28,7 @@
 		CEF408E72C6EA09600E88229 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E62C6EA09600E88229 /* PhotoViewController.swift */; };
 		CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */; };
 		CEF427C52C6FB1A70081D3C7 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */; };
+		CEF427C72C6FBA7B0081D3C7 /* WebViewAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C62C6FBA7B0081D3C7 /* WebViewAuthDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		CEF408E62C6EA09600E88229 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTitleLabel.swift; sourceTree = "<group>"; };
 		CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		CEF427C62C6FBA7B0081D3C7 /* WebViewAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewAuthDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				CEF408E62C6EA09600E88229 /* PhotoViewController.swift */,
 				CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */,
 				CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */,
+				CEF427C62C6FBA7B0081D3C7 /* WebViewAuthDelegate.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */,
 				CEF4088F2C6AB73400E88229 /* AuthViewController.swift in Sources */,
 				CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */,
+				CEF427C72C6FBA7B0081D3C7 /* WebViewAuthDelegate.swift in Sources */,
 				CEF4088B2C6AB73400E88229 /* AppDelegate.swift in Sources */,
 				CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */,
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,

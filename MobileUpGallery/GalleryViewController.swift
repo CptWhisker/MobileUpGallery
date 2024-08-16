@@ -162,11 +162,7 @@ final class GalleryViewController: UIViewController {
     }
     
     @objc private func logoutTapped() {
-        if view.backgroundColor != .red {
-            view.backgroundColor = .red
-        } else {
-            view.backgroundColor = .white
-        }
+        dismiss(animated: true, completion: nil)
     }
 }
 

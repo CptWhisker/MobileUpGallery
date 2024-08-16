@@ -15,6 +15,7 @@ final class VideoPlayerViewController: UIViewController {
     // MARK: - Initializers
     init(video: Video) {
         self.video = video
+        
         super.init(nibName: nil, bundle: nil)
     }
     

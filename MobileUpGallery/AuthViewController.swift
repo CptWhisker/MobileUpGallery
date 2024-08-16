@@ -75,8 +75,19 @@ final class AuthViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func loginButtonTapped() {
-        let webViewViewController = WebViewViewController()
+        let webViewViewController = WebViewViewController(delegate: self)
         present(webViewViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - WebViewAuthDelegate
+extension AuthViewController: WebViewAuthDelegate {
+    func didAuthorize() {
+        let galleryViewController = GalleryViewController()
+        let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)
+        galleryNavigationController.modalPresentationStyle = .fullScreen
+        
+        present(galleryNavigationController, animated: true, completion: nil)
     }
 }
 

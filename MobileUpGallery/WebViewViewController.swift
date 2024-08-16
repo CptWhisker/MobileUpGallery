@@ -5,6 +5,7 @@ final class WebViewViewController: UIViewController {
     // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
     private let configuration: AuthConfiguration = .standard
+    private let delegate: WebViewAuthDelegate
     
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {
@@ -19,6 +20,17 @@ final class WebViewViewController: UIViewController {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
+    
+    // MARK: - Initializers
+    init(delegate: WebViewAuthDelegate) {
+        self.delegate = delegate
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -114,12 +126,12 @@ extension WebViewViewController: WKNavigationDelegate {
         if let accessToken = getAccessToken(from: navigationAction) {
             AccessTokenStorage.shared.accessToken = accessToken
             
-            let galleryViewController = GalleryViewController()
-            let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)
-            galleryNavigationController.modalPresentationStyle = .fullScreen
+            decisionHandler(.cancel)
             
-            present(galleryNavigationController, animated: true) {
-                decisionHandler(.cancel)
+            dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                
+                self.delegate.didAuthorize()
             }
         } else {
             decisionHandler(.allow)
