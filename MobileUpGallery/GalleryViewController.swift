@@ -162,6 +162,8 @@ final class GalleryViewController: UIViewController {
     }
     
     @objc private func logoutTapped() {
+        AccessTokenStorage.shared.accessToken = nil
+        
         dismiss(animated: true, completion: nil)
     }
 }
