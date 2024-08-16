@@ -26,6 +26,7 @@
 		CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */; };
 		CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E22C6E5E8000E88229 /* VideoCell.swift */; };
 		CEF408E72C6EA09600E88229 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E62C6EA09600E88229 /* PhotoViewController.swift */; };
+		CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkService.swift; sourceTree = "<group>"; };
 		CEF408E22C6E5E8000E88229 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CEF408E62C6EA09600E88229 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTitleLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */,
 				CEF408E22C6E5E8000E88229 /* VideoCell.swift */,
 				CEF408E62C6EA09600E88229 /* PhotoViewController.swift */,
+				CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,
 				CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */,
 				CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */,
+				CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */,
 				CEF408A32C6BF1DF00E88229 /* GalleryViewController.swift in Sources */,
 				CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */,
 				CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */,

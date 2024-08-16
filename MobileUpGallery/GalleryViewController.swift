@@ -1,6 +1,13 @@
 import UIKit
 
 final class GalleryViewController: UIViewController {
+    // MARK: - Mock Video
+    let mockVideo = Video(
+        title: "Анимированные vmoji в VK Звонках",
+        player: "https://vk.com/video_ext.php?oid=-22822305&id=456242110&hash=e037414127166efe&__ref=vk.api&api_hash=1677682946870d1f6fa590a9b323_HAZDCNJWG42DA",
+        image: [PreviewImage(url: "https://i.mycdn.me/getVideoPreview?id=3376734079543&idx=0&type=39&tkn=WK9Wdwpqr6z6g9umM95aW3Ch3QM&fn=vid_w")]
+    )
+    
     // MARK: - Properties
     private var photos = [Photo]()
     private var videos = [Video]()
@@ -40,7 +47,8 @@ final class GalleryViewController: UIViewController {
         
         configureInterface()
         loadPhotos()
-        loadVideos()
+//        loadVideos()
+        loadMockVideos()
     }
     
     // MARK: - Interface Configuration
@@ -131,13 +139,25 @@ final class GalleryViewController: UIViewController {
         }
     }
     
+    private func loadMockVideos() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            for _ in 0...5 {
+                self.videos.append(self.mockVideo)
+            }
+            
+            self.videosCollectionView.reloadData()
+        }
+    }
+    
     // MARK: - Actions
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
         
         if sender.selectedSegmentIndex == 1 && videos.isEmpty {
-            loadVideos()
+//            loadVideos()
         }
     }
     
@@ -215,8 +235,9 @@ extension GalleryViewController: UICollectionViewDelegate {
                 loadPhotos()
             }
         } else {
-            if indexPath.item == videos.count - 2 {
-                loadVideos()
+            if indexPath.item == videos.count - 5 {
+//                loadVideos()
+                loadMockVideos()
             }
         }
     }

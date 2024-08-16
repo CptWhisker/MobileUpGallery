@@ -36,7 +36,7 @@ final class PhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         configureInterface()
         loadAndDisplayImage()
     }
@@ -44,7 +44,7 @@ final class PhotoViewController: UIViewController {
     // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .white
-        
+                
         configureNavigationBar()
         configurePhotoScrollView()
         configurePhotoView()
@@ -62,7 +62,7 @@ final class PhotoViewController: UIViewController {
     
     private func configurePhotoScrollView() {
         view.addSubview(photoScrollView)
-        
+                
         NSLayoutConstraint.activate([
             photoScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             photoScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -78,7 +78,7 @@ final class PhotoViewController: UIViewController {
             photoView.topAnchor.constraint(equalTo: photoScrollView.topAnchor),
             photoView.bottomAnchor.constraint(equalTo: photoScrollView.bottomAnchor),
             photoView.leadingAnchor.constraint(equalTo: photoScrollView.leadingAnchor),
-            photoView.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
+            photoView.trailingAnchor.constraint(equalTo: photoScrollView.trailingAnchor)
         ])
     }
     
@@ -114,7 +114,6 @@ final class PhotoViewController: UIViewController {
     // MARK: - Private Methods
     private func loadAndDisplayImage() {
         guard let imageURL = URL(string: photo) else { return }
-        print(imageURL)
         
         photoView.kf.indicatorType = .activity
         photoView.kf.setImage(with: imageURL) { [weak self] result in
