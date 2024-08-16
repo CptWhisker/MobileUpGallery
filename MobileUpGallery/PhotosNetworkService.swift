@@ -1,5 +1,8 @@
 import UIKit
 
+struct ErrorResponse: Decodable {
+    
+}
 final class PhotosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
@@ -53,6 +56,8 @@ final class PhotosNetworkService {
                 completion(.failure(NetworkServiceError.dataFetchError))
                 return
             }
+            
+            print(String(data: data, encoding: .utf8))
             
             do {
                 let response = try self.decoder.decode(VKPhotosResponse.self, from: data)

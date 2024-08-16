@@ -5,7 +5,6 @@ final class WebViewViewController: UIViewController {
     // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
     private let configuration: AuthConfiguration = .standard
-    private let delegate: WebViewAuthDelegate
     
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {
@@ -20,17 +19,6 @@ final class WebViewViewController: UIViewController {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
-    
-    // MARK: - Initializers
-    init(delegate: WebViewAuthDelegate) {
-        self.delegate = delegate
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -118,6 +106,27 @@ final class WebViewViewController: UIViewController {
         
         return parameters["access_token"]
     }
+    
+    // MARK: - Switching to Gallery
+    private func switchToGallery() {
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let window = windowScene.windows.first else {
+            assertionFailure("Invalid window configuration")
+            return
+        }
+        
+        let galleryViewController = GalleryViewController()
+        let galleryNavigationController = UINavigationController(rootViewController: galleryViewController)
+        window.rootViewController = galleryNavigationController
+        UIView.transition(
+            with: window,
+            duration: 0.5,
+            options: .transitionFlipFromRight,
+            animations: nil,
+            completion: nil
+        )
+    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -128,11 +137,7 @@ extension WebViewViewController: WKNavigationDelegate {
             
             decisionHandler(.cancel)
             
-            dismiss(animated: true) { [weak self] in
-                guard let self else { return }
-                
-                self.delegate.didAuthorize()
-            }
+            switchToGallery()
         } else {
             decisionHandler(.allow)
         }

@@ -164,7 +164,22 @@ final class GalleryViewController: UIViewController {
     @objc private func logoutTapped() {
         AccessTokenStorage.shared.accessToken = nil
         
-        dismiss(animated: true, completion: nil)
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let window = windowScene.windows.first else {
+            assertionFailure("Invalid window configuration")
+            return
+        }
+        
+        let authViewController = AuthViewController()
+        window.rootViewController = authViewController
+        UIView.transition(
+            with: window,
+            duration: 0.5,
+            options: .transitionFlipFromRight,
+            animations: nil,
+            completion: nil
+        )
     }
 }
 
