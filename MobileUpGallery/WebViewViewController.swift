@@ -33,15 +33,25 @@ final class WebViewViewController: UIViewController {
     private func configureInterface() {
         view.backgroundColor = .main
         
+        configureWebView()
+        configureLoadingBar()
+    }
+    
+    private func configureWebView() {
         view.addSubview(webView)
-        view.addSubview(loadingBar)
         
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func configureLoadingBar() {
+        view.addSubview(loadingBar)
+        
+        NSLayoutConstraint.activate([
             loadingBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             loadingBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             loadingBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
