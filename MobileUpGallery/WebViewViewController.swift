@@ -31,7 +31,7 @@ final class WebViewViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .main
         
         view.addSubview(webView)
         view.addSubview(loadingBar)

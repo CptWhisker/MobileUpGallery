@@ -7,11 +7,10 @@ final class VideosNetworkService {
     private var totalVideoCount: Int?
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        return decoder
+        return JSONDecoder()
     }()
     
-    // MARK: - Public Methods
+    // MARK: - Fetching Videos
     func fetchVideos(completion: @escaping (Result<[Video], Error>) -> Void) {
         guard let accessToken = AccessTokenStorage.shared.accessToken else {
             print("ERROR")
@@ -77,6 +76,7 @@ final class VideosNetworkService {
         task.resume()
     }
     
+    // MARK: - Public Methods
     func increaseOffset() {
         offset += configuration.count
     }

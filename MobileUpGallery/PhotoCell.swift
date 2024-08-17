@@ -2,6 +2,7 @@ import UIKit
 import Kingfisher
 
 final class PhotoCell: UICollectionViewCell {
+    // MARK: - UI Elements
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -11,6 +12,7 @@ final class PhotoCell: UICollectionViewCell {
         return imageView
     }()
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -21,6 +23,7 @@ final class PhotoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Interface Configuration
     private func configureCell() {
         contentView.addSubview(imageView)
         
@@ -32,6 +35,7 @@ final class PhotoCell: UICollectionViewCell {
         ])
     }
     
+    // MARK: - Public Methods
     func setPhoto(_ photo: Photo) {
         guard let urlString = photo.thumbURL,
               let url = URL(string: urlString)

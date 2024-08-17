@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 
 final class VideoCell: UICollectionViewCell {
-    // MARK: - Properties
+    // MARK: - UI Elements
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

@@ -10,11 +10,10 @@ final class PhotosNetworkService {
     private var totalPhotosCount: Int?
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        return decoder
+        return JSONDecoder()
     }()
     
-    // MARK: - Public Methods
+    // MARK: - Fetching Photos
     func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
         guard let accessToken = AccessTokenStorage.shared.accessToken else {
             print("ERROR")
@@ -80,6 +79,7 @@ final class PhotosNetworkService {
         task.resume()
     }
     
+    //MARK: - Public Methods
     func increaseOffset() {
         offset += configuration.count
     }
