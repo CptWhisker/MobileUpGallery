@@ -3,6 +3,7 @@ import UIKit
 final class VideosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
+    private let configuration: VideoRequestConfiguration = .standard
     private var totalVideoCount: Int?
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
@@ -22,16 +23,16 @@ final class VideosNetworkService {
         }
         
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.vk.com"
-        urlComponents.path = "/method/video.get"
+        urlComponents.scheme = configuration.scheme
+        urlComponents.host = configuration.host
+        urlComponents.path = configuration.path
         
         urlComponents.queryItems = [
-            URLQueryItem(name: "owner_id", value: "-128666765"),
+            URLQueryItem(name: "owner_id", value: configuration.ownerID),
             URLQueryItem(name: "access_token", value: accessToken),
-            URLQueryItem(name: "v", value: "5.199"),
+            URLQueryItem(name: "v", value: configuration.version),
             URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "count", value: "5")
+            URLQueryItem(name: "count", value: "\(configuration.count)")
         ]
         
         guard let url = urlComponents.url else {
@@ -77,6 +78,6 @@ final class VideosNetworkService {
     }
     
     func increaseOffset() {
-        offset += 5
+        offset += configuration.count
     }
 }
