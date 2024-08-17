@@ -1,6 +1,11 @@
 import UIKit
 import WebKit
 
+// MARK: - AlertActions enum
+enum AlertActions {
+    case reload, cancel
+}
+
 final class WebViewViewController: UIViewController {
     // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
@@ -93,7 +98,7 @@ final class WebViewViewController: UIViewController {
         ]
         
         guard let url = urlComponents.url else {
-            print("[WebViewViewController loadAuthView]: urlError - Unable to generate URL from URLComponents")
+            showAlert(title: "InternalError", message: "An unexpected error occurred while preparing the login page. Please try again later.", actions: [.cancel])
             return
         }
         
@@ -118,7 +123,7 @@ final class WebViewViewController: UIViewController {
             return token
         }
         
-        showAlert(title: "Authorization Failed", message: "Failed to retrieve access token. Please try again.")
+        showAlert(title: "Authorization Failed", message: "Failed to retrieve access token. Please try again.", actions: [.reload, .cancel])
         return nil
     }
     
@@ -144,21 +149,26 @@ final class WebViewViewController: UIViewController {
     }
     
     // MARK: - Showing Alert
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String, actions: [AlertActions]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Reload Page", style: .default, handler: { [weak self] _ in
-            guard let self else { return }
-            
-            self.loadAuthView()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak self] _ in
-            guard let self else { return }
-            
-            self.dismiss(animated: true, completion: nil)
-        }))
-        
+        actions.forEach {
+            switch $0 {
+            case .reload:
+                alert.addAction(UIAlertAction(title: "Reload Page", style: .default, handler: { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.loadAuthView()
+                }))
+                
+            case .cancel:
+                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }))
+            }
+        }
         present(alert, animated: true)
     }
 }
@@ -178,10 +188,10 @@ extension WebViewViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        showAlert(title: "Error", message: "Failed to load the authentication page. Please check your connection and try again.")
+        showAlert(title: "Error", message: "Failed to load the authentication page. Please check your connection and try again.", actions: [.reload, .cancel])
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        showAlert(title: "Error", message: "An unexpected error occurred. Please try again.")
+        showAlert(title: "Error", message: "An unexpected error occurred. Please try again.", actions: [.reload, .cancel])
     }
 }
