@@ -93,7 +93,7 @@ final class WebViewViewController: UIViewController {
         ]
         
         guard let url = urlComponents.url else {
-            print("ERROR")
+            print("[WebViewViewController loadAuthView]: urlError - Unable to generate URL from URLComponents")
             return
         }
         
@@ -114,7 +114,12 @@ final class WebViewViewController: UIViewController {
             return (String(pair[0]), String(pair[1]))
         })
         
-        return parameters["access_token"]
+        if let token = parameters["access_token"] {
+            return token
+        }
+        
+        showAlert(title: "Authorization Failed", message: "Failed to retrieve access token. Please try again.")
+        return nil
     }
     
     // MARK: - Switching to Gallery
@@ -137,6 +142,25 @@ final class WebViewViewController: UIViewController {
             completion: nil
         )
     }
+    
+    // MARK: - Showing Alert
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Reload Page", style: .default, handler: { [weak self] _ in
+            guard let self else { return }
+            
+            self.loadAuthView()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak self] _ in
+            guard let self else { return }
+            
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -151,5 +175,13 @@ extension WebViewViewController: WKNavigationDelegate {
         } else {
             decisionHandler(.allow)
         }
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        showAlert(title: "Error", message: "Failed to load the authentication page. Please check your connection and try again.")
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        showAlert(title: "Error", message: "An unexpected error occurred. Please try again.")
     }
 }
