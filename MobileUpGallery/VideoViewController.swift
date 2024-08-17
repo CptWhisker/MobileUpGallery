@@ -4,6 +4,7 @@ import WebKit
 final class VideoPlayerViewController: UIViewController {
     // MARK: - Properties
     private let video: Video
+    private var estimatedProgressObservation: NSKeyValueObservation?
     
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {
@@ -11,6 +12,12 @@ final class VideoPlayerViewController: UIViewController {
         webView.backgroundColor = .main
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
+    }()
+    private lazy var loadingBar: UIProgressView = {
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.progressTintColor = .black
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        return progressView
     }()
     
     // MARK: - Initializers
@@ -29,6 +36,7 @@ final class VideoPlayerViewController: UIViewController {
         super.viewDidLoad()
         
         configureInterface()
+        addObserverForLoadingProgress()
         loadVideo()
     }
     
@@ -38,6 +46,7 @@ final class VideoPlayerViewController: UIViewController {
         
         configureNavigationBar()
         configureWebView()
+        configureLoadingBar()
     }
     
     private func configureNavigationBar() {
@@ -58,7 +67,36 @@ final class VideoPlayerViewController: UIViewController {
         ])
     }
     
-    // MARK: - Private Methods
+    private func configureLoadingBar() {
+        view.addSubview(loadingBar)
+        
+        NSLayoutConstraint.activate([
+            loadingBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            loadingBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    // MARK: - KVO
+    private func addObserverForLoadingProgress() {
+        estimatedProgressObservation = webView.observe(\.estimatedProgress, options: []) { [weak self] _, _ in
+            guard let self else { return }
+            
+            self.updateLoadingProgress(self.webView.estimatedProgress)
+        }
+    }
+    
+    private func updateLoadingProgress(_ newValue: Double) {
+        let newProgressValue = Float(newValue)
+        
+        loadingBar.progress = newProgressValue
+        
+        if abs(newProgressValue - 1.0) <= 0.001 {
+            loadingBar.isHidden = true
+        }
+    }
+    
+    // MARK: - Loading Video
     private func loadVideo() {
         guard let url = URL(string: video.player) else { return }
         let request = URLRequest(url: url)
