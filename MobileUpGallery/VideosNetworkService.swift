@@ -3,6 +3,7 @@ import UIKit
 final class VideosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
+    private var totalVideoCount: Int?
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -13,6 +14,10 @@ final class VideosNetworkService {
     func fetchVideos(completion: @escaping (Result<[Video], Error>) -> Void) {
         guard let accessToken = AccessTokenStorage.shared.accessToken else {
             print("ERROR")
+            return
+        }
+        
+        if let totalVideoCount, offset >= totalVideoCount {
             return
         }
         
@@ -57,6 +62,11 @@ final class VideosNetworkService {
             
             do {
                 let response = try self.decoder.decode(VKVideosResonse.self, from: data)
+                
+                if self.totalVideoCount == nil {
+                    self.totalVideoCount = response.response.count
+                }
+                
                 completion(.success(response.response.items))
             } catch {
                 completion(.failure(NetworkServiceError.decodingError))

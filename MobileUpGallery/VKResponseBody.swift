@@ -6,6 +6,7 @@ struct VKPhotosResponse: Decodable {
 }
 
 struct Photos: Decodable {
+    let count: Int
     let items: [Photo]
 }
 
@@ -23,6 +24,13 @@ struct Photo: Decodable {
     var largeURL: String? {
         return sizes.last?.url
     }
+    
+    var formattedDate: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self.date))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        return dateFormatter.string(from: date)
+    }
 }
 
 struct PhotoSize: Decodable {
@@ -36,6 +44,7 @@ struct VKVideosResonse: Decodable {
 }
 
 struct Videos: Decodable {
+    let count: Int
     let items: [Video]
 }
 

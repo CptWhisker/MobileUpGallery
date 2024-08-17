@@ -260,8 +260,8 @@ extension GalleryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == photosCollectionView {
-            guard let photo = photos[indexPath.item].largeURL else { return }
-            let photoViewController = PhotoViewController(image: photo)
+            let photo = photos[indexPath.item]
+            let photoViewController = PhotoViewController(photo: photo)
             navigationController?.pushViewController(photoViewController, animated: true)
         } else {
             let video = videos[indexPath.item]

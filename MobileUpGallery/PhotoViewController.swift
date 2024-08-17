@@ -3,7 +3,7 @@ import Kingfisher
 
 final class PhotoViewController: UIViewController {
     //  MARK: - Properties
-    let photo: String
+    let photo: Photo
     
     // MARK: - UI Elements
     private lazy var photoScrollView: UIScrollView = {
@@ -24,8 +24,8 @@ final class PhotoViewController: UIViewController {
     }()
     
     // MARK: - Initializers
-    init(image: String) {
-        self.photo = image
+    init(photo: Photo) {
+        self.photo = photo
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,6 +51,8 @@ final class PhotoViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
+        title = photo.formattedDate
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         
@@ -114,7 +116,8 @@ final class PhotoViewController: UIViewController {
     
     // MARK: - Private Methods
     private func loadAndDisplayImage() {
-        guard let imageURL = URL(string: photo) else { return }
+        guard let photoString = photo.largeURL,
+              let imageURL = URL(string: photoString) else { return }
         
         photoView.kf.indicatorType = .activity
         photoView.kf.setImage(with: imageURL) { [weak self] result in

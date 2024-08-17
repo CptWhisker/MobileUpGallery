@@ -7,6 +7,7 @@ final class PhotosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
     private let configuration: PhotosRequestConfiguration = .mobileUpOffice
+    private var totalPhotosCount: Int?
     private var offset: Int = 0
     private lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -17,6 +18,10 @@ final class PhotosNetworkService {
     func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
         guard let accessToken = AccessTokenStorage.shared.accessToken else {
             print("ERROR")
+            return
+        }
+        
+        if let totalPhotosCount, offset >= totalPhotosCount {
             return
         }
         
@@ -41,7 +46,9 @@ final class PhotosNetworkService {
         
         let request = URLRequest(url: url)
         
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { [weak self] data, response, error in
+            guard let self else { return }
+            
             if error != nil {
                 completion(.failure(NetworkServiceError.dataTaskError))
                 return
@@ -57,10 +64,13 @@ final class PhotosNetworkService {
                 return
             }
             
-            print(String(data: data, encoding: .utf8))
-            
             do {
                 let response = try self.decoder.decode(VKPhotosResponse.self, from: data)
+                
+                if self.totalPhotosCount == nil {
+                    self.totalPhotosCount = response.response.count
+                }
+                
                 completion(.success(response.response.items))
             } catch {
                 completion(.failure(NetworkServiceError.decodingError))
