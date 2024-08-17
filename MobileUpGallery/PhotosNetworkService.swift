@@ -1,8 +1,5 @@
 import UIKit
 
-struct ErrorResponse: Decodable {
-    
-}
 final class PhotosNetworkService {
     // MARK: - Properties
     private let session = URLSession.shared
@@ -24,26 +21,10 @@ final class PhotosNetworkService {
             return
         }
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = configuration.scheme
-        urlComponents.host = configuration.host
-        urlComponents.path = configuration.path
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "owner_id", value: configuration.ownerID),
-            URLQueryItem(name: "album_id", value: configuration.albumID),
-            URLQueryItem(name: "access_token", value: accessToken),
-            URLQueryItem(name: "v", value: configuration.version),
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "count", value: "\(configuration.count)")
-        ]
-        
-        guard let url = urlComponents.url else {
+        guard let request = generateRequest(with: accessToken) else {
             print("ERROR")
             return
         }
-        
-        let request = URLRequest(url: url)
         
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             guard let self else { return }
@@ -77,6 +58,28 @@ final class PhotosNetworkService {
         }
         
         task.resume()
+    }
+    
+    private func generateRequest(with accessToken: String) -> URLRequest? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = configuration.scheme
+        urlComponents.host = configuration.host
+        urlComponents.path = configuration.path
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "owner_id", value: configuration.ownerID),
+            URLQueryItem(name: "album_id", value: configuration.albumID),
+            URLQueryItem(name: "access_token", value: accessToken),
+            URLQueryItem(name: "v", value: configuration.version),
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "count", value: "\(configuration.count)")
+        ]
+        
+        guard let url = urlComponents.url else {
+            return nil
+        }
+        
+        return URLRequest(url: url)
     }
     
     //MARK: - Public Methods
