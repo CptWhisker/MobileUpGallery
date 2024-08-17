@@ -7,7 +7,7 @@ final class VideoCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .cellBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -18,6 +18,7 @@ final class VideoCell: UICollectionViewCell {
         label.layer.cornerRadius = 16
         label.backgroundColor = .titleBackground
         label.font = .systemFont(ofSize: 13)
+        label.textColor = .black
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

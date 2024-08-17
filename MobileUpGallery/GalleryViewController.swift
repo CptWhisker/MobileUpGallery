@@ -28,6 +28,7 @@ final class GalleryViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = .main
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
         return collectionView
@@ -36,6 +37,7 @@ final class GalleryViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = .main
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "VideoCell")
         return collectionView
@@ -53,7 +55,7 @@ final class GalleryViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .main
         
         configureNavigationBar()
         configureSegmentedControl()
@@ -62,8 +64,9 @@ final class GalleryViewController: UIViewController {
     
     private func configureNavigationBar(){
         title = "MobileUp Gallery"
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logoutTapped))
+        
+        navigationController?.navigationBar.tintColor = .accent
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logoutButtonTapped))
         navigationItem.backButtonTitle = ""
     }
     
@@ -161,7 +164,7 @@ final class GalleryViewController: UIViewController {
         }
     }
     
-    @objc private func logoutTapped() {
+    @objc private func logoutButtonTapped() {
         AccessTokenStorage.shared.accessToken = nil
         
         guard let windowScene = UIApplication.shared.connectedScenes

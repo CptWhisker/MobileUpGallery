@@ -8,6 +8,7 @@ final class VideoPlayerViewController: UIViewController {
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
+        webView.backgroundColor = .main
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -33,7 +34,7 @@ final class VideoPlayerViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .main
         
         configureNavigationBar()
         configureWebView()
@@ -42,6 +43,7 @@ final class VideoPlayerViewController: UIViewController {
     private func configureNavigationBar() {
         title = video.title
         
+        navigationController?.navigationBar.tintColor = .accent
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
     }
     

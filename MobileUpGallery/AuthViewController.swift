@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.text = "Mobile Up\nGallery"
-        label.textColor = .black
+        label.textColor = .accent
         label.font = .systemFont(ofSize: Layout.titleFontSize, weight: .bold)
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,8 +27,8 @@ final class AuthViewController: UIViewController {
     private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Вход через VK", for: .normal)
-        button.backgroundColor = .black
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .accent
+        button.setTitleColor(.main, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: Layout.buttonFontSize)
         button.layer.cornerRadius = Layout.buttonCornerRadius
         button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -45,7 +45,7 @@ final class AuthViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .main
         
         configureTitleLabel()
         configureLoginButton()

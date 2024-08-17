@@ -43,7 +43,7 @@ final class PhotoViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .main
                 
         configureNavigationBar()
         configurePhotoScrollView()
@@ -57,6 +57,7 @@ final class PhotoViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
+        navigationController?.navigationBar.tintColor = .accent
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareTapped))
     }
     
