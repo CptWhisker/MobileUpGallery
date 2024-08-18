@@ -8,6 +8,7 @@ struct AuthConfiguration {
     let redirectURI: String
     let display: String
     let responseType: String
+    let scope: String
     let navigationActionPath: String
     
     static var standard = AuthConfiguration(
@@ -18,6 +19,7 @@ struct AuthConfiguration {
         redirectURI: "https://oauth.vk.com/blank.html",
         display: "mobile",
         responseType: "token",
+        scope: "video",
         navigationActionPath: "/blank.html"
     )
     
@@ -29,6 +31,7 @@ struct AuthConfiguration {
         redirectURI: String,
         display: String,
         responseType: String,
+        scope: String,
         navigationActionPath: String
     ) {
         self.scheme = scheme
@@ -38,6 +41,7 @@ struct AuthConfiguration {
         self.redirectURI = redirectURI
         self.display = display
         self.responseType = responseType
+        self.scope = scope
         self.navigationActionPath = navigationActionPath
     }
 }

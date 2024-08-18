@@ -30,7 +30,7 @@
 		CEF427CF2C71F58A0081D3C7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427CE2C71F58A0081D3C7 /* NetworkService.swift */; };
 		CEF427D72C721FEE0081D3C7 /* AlertPresenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427D62C721FEE0081D3C7 /* AlertPresenterService.swift */; };
 		CEF427DB2C724A7E0081D3C7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CEF427DA2C724A7E0081D3C7 /* ProgressHUD */; };
-		CEF427DD2C724AD10081D3C7 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427DC2C724AD10081D3C7 /* UIBlockingProgressHUD.swift */; };
+		CEF427DD2C724AD10081D3C7 /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427DC2C724AD10081D3C7 /* LoadingHUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +56,7 @@
 		CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CEF427CE2C71F58A0081D3C7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CEF427D62C721FEE0081D3C7 /* AlertPresenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterService.swift; sourceTree = "<group>"; };
-		CEF427DC2C724AD10081D3C7 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		CEF427DC2C724AD10081D3C7 /* LoadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHUD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +99,10 @@
 				CEF427D42C71FAE00081D3C7 /* Network */,
 				CEF427D82C7232330081D3C7 /* Services */,
 				CEF427D52C71FB0F0081D3C7 /* Storage */,
+				CEF427DE2C7268A80081D3C7 /* Helpers */,
 				CEF408932C6AB73A00E88229 /* Assets.xcassets */,
 				CEF408952C6AB73A00E88229 /* LaunchScreen.storyboard */,
 				CEF408982C6AB73A00E88229 /* Info.plist */,
-				CEF427DC2C724AD10081D3C7 /* UIBlockingProgressHUD.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -172,6 +172,14 @@
 				CEF427D62C721FEE0081D3C7 /* AlertPresenterService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CEF427DE2C7268A80081D3C7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CEF427DC2C724AD10081D3C7 /* LoadingHUD.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +271,7 @@
 				CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */,
 				CEF427C52C6FB1A70081D3C7 /* VideoViewController.swift in Sources */,
 				CEF427D72C721FEE0081D3C7 /* AlertPresenterService.swift in Sources */,
-				CEF427DD2C724AD10081D3C7 /* UIBlockingProgressHUD.swift in Sources */,
+				CEF427DD2C724AD10081D3C7 /* LoadingHUD.swift in Sources */,
 				CEF427CD2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift in Sources */,
 				CEF427CF2C71F58A0081D3C7 /* NetworkService.swift in Sources */,
 				CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */,
