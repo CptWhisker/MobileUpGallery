@@ -337,7 +337,7 @@ extension GalleryViewController: UICollectionViewDelegate {
             navigationController?.pushViewController(photoViewController, animated: true)
         } else {
             let video = videos[indexPath.item]
-            let videoViewController = VideoPlayerViewController(video: video)
+            let videoViewController = VideoViewController(video: video)
             navigationController?.pushViewController(videoViewController, animated: true)
         }
     }

@@ -135,12 +135,6 @@ final class PhotoViewController: UIViewController {
         }
     }
     
-    private func showActivityAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
-    }
-    
     private func showAlert(title: String, message: String, actions: [AlertActions]) {
         AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
     }

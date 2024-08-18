@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-final class VideoPlayerViewController: UIViewController {
+final class VideoViewController: UIViewController {
     // MARK: - Properties
     private let video: Video
     private var estimatedProgressObservation: NSKeyValueObservation?
@@ -10,6 +10,7 @@ final class VideoPlayerViewController: UIViewController {
     private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.backgroundColor = .main
+        webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -96,18 +97,48 @@ final class VideoPlayerViewController: UIViewController {
         }
     }
     
+    private func showAlert(message: String, actions: [AlertActions]) {
+        let title = "Error"
+        
+        AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+    }
+    
     // MARK: - Loading Video
     private func loadVideo() {
-        guard let url = URL(string: video.player) else { return }
+        guard let url = URL(string: video.player) else {
+            showAlert(message: "The video URL is invalid", actions: [.cancel])
+            return
+        }
+        
         let request = URLRequest(url: url)
         webView.load(request)
     }
     
     // MARK: - Actions
     @objc private func shareButtonTapped() {
-        guard let url = URL(string: video.player) else { return }
+        guard let url = URL(string: video.player) else {
+            showAlert(message: "There is no URL avaliable to share", actions: [.dismiss])
+            return }
+        
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(activityViewController, animated: true)
+        
+        activityViewController.completionWithItemsHandler = { [weak self] activityType, completed, returnedItems, activityError in
+            guard let self else { return }
+            
+            if let error = activityError {
+                self.showAlert(message: error.localizedDescription, actions: [.dismiss])
+            }
+        }
     }
 }
 
+extension VideoViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        showAlert(message: "Error while loading video", actions: [.reload, .cancel])
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        showAlert(message: "Error while loading video", actions: [.reload, .cancel])
+    }
+}
