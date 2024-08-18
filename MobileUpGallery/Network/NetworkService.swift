@@ -60,6 +60,8 @@ final class NetworkService<T: Decodable> {
                     self.totalItemsCount = decodedResponse.response.count
                 }
 
+                increaseOffset()
+                
                 completion(.success(decodedResponse.response.items))
             } catch {
                 completion(.failure(NetworkServiceError.decodingError))
@@ -87,8 +89,7 @@ final class NetworkService<T: Decodable> {
         return URLRequest(url: url)
     }
     
-    //MARK: - Public Methods
-    func increaseOffset() {
+    private func increaseOffset() {
         offset += configuration.count
     }
 }

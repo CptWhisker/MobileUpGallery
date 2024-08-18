@@ -127,7 +127,6 @@ final class GalleryViewController: UIViewController {
                 switch result {
                 case .success(let newPhotos):
                     self.performPhotosBatchUpdate(with: newPhotos)
-                    self.photosNetworkService.increaseOffset()
                 case .failure(let error):
                     self.handleNetworkError(error)
                     print("photosNetworkService ERROR", error)
@@ -148,7 +147,6 @@ final class GalleryViewController: UIViewController {
                 switch result {
                 case .success(let newVideos):
                     self.performVideosBatchUpdate(newVideos: newVideos)
-                    self.videosNetworkService.increaseOffset()
                 case .failure(let error):
                     self.handleNetworkError(error)
                     print("videosNetworkService ERROR", error)
