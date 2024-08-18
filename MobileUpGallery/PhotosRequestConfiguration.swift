@@ -47,3 +47,14 @@ struct PhotosRequestConfiguration {
         self.count = count
     }
 }
+
+extension PhotosRequestConfiguration: RequestConfigurationProtocol {
+    var queryItems: [URLQueryItem] {
+        return [
+            URLQueryItem(name: "owner_id", value: ownerID),
+            URLQueryItem(name: "album_id", value: albumID),
+            URLQueryItem(name: "v", value: version),
+            URLQueryItem(name: "count", value: "\(count)")
+        ]
+    }
+}

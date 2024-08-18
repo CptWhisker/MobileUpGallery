@@ -33,3 +33,13 @@ struct VideoRequestConfiguration {
         self.count = count
     }
 }
+
+extension VideoRequestConfiguration: RequestConfigurationProtocol {
+    var queryItems: [URLQueryItem] {
+        return [
+            URLQueryItem(name: "owner_id", value: ownerID),
+            URLQueryItem(name: "v", value: version),
+            URLQueryItem(name: "count", value: "\(count)")
+        ]
+    }
+}

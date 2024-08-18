@@ -29,6 +29,7 @@
 		CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */; };
 		CEF427C52C6FB1A70081D3C7 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */; };
 		CEF427C92C70A2820081D3C7 /* VideoRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C82C70A2820081D3C7 /* VideoRequestConfiguration.swift */; };
+		CEF427CD2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTitleLabel.swift; sourceTree = "<group>"; };
 		CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		CEF427C82C70A2820081D3C7 /* VideoRequestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRequestConfiguration.swift; sourceTree = "<group>"; };
+		CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestConfigurationProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */,
 				CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */,
 				CEF427C82C70A2820081D3C7 /* VideoRequestConfiguration.swift */,
+				CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,
 				CEF4089F2C6BBBC100E88229 /* WebViewViewController.swift in Sources */,
 				CEF427C52C6FB1A70081D3C7 /* VideoViewController.swift in Sources */,
+				CEF427CD2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift in Sources */,
 				CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */,
 				CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */,
 				CEF408A32C6BF1DF00E88229 /* GalleryViewController.swift in Sources */,
