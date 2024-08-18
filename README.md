@@ -1,5 +1,11 @@
 # MobileUpGallery
 
+## ДИСКЛЕЙМЕР
+Друзья, прошу обратить внимание, что на момент вечера 18.08.2024 мое приложение не имеет расширенных доступов, требующихся, согласно документации API VK ID, для совершения успешных запросов большим количеством методов, включающих и `video.get`. Запрос на получение этих прав был направлен через личный кабинет приложения в четверг, верификацию обещали дать в течение 2-х рабочих дней, но до выходных не успели :(
+Метод для загрузки объектов `Video` у меня написан и должен работать, но без реального взаимодействия с сервером мне его не проверить. В связи с чем прошу пользоваться предоставленной тестовой заглушкой, активировать которую можно в `GalleryViewController` поменяв значение параметра `testMode` на `true`. Как только требуемые доступы будут получены и код пройдет проверку (надеюсь), тестовая конфигурация будет удалена вместе с этим дисклеймером :)
+
+PS. По возможности все стараюсь писать на английском языке. Сам не знаю почему, просто стилистически так больше нравится :З
+
 ## Project Description
 MobileUpGallery is an iOS application for authorizing in the social network VK via OAuth, with the ability to view photos and videos from the `https://vk.com/mobileup_studio` group. Users can save photos, share them and watch videos via the built-in player.
 
@@ -62,6 +68,47 @@ MobileUpGallery is an iOS application for authorizing in the social network VK v
 ## Libraries Used
 - **KingFisher** - for image loading and caching
 - **WebKit** - for working with WebView
+- **KeyChainWrapper** - for storing data in KeyChain
+- **ProgressHUD** - for displaying loading animations
 
 ## Project Architecture
 The project is implemented using MVC (Model-View-Controller) architecture. UIKit is used for screen layout and navigation.
+
+## Real Work vs. Time Estimates
+#### Initial Estimate:
+
+The project was initially estimated to take 36 hours, broken down into specific tasks as outlined in the project decomposition. This estimation aimed to cover the full development cycle, including setting up the project, implementing features, handling errors, and testing.
+
+#### Actual Time Spent:
+Upon completing the project, the actual time spent on each task was as follows:
+- **Project Setup and Repository Configuration**: 1 hour (as estimated)
+- **Adding OAuth Authorization Support**: 15 hours (11 hours over the estimate)
+- **Implementing Session Saving and Restoration**: 1 hours (1 hours under the estimate)
+- **Implementing the "Photos" Screen**: 3 hours (2 hour under the estimate)
+- **Implementing the "Videos" Screen**: 1 hours (4 hour under the estimate)
+- **Viewing and Saving Photos**: 4 hours (1 hour under the estimate)
+- **Viewing and Saving Videos**: 1 hours (4 hour under the estimate)
+- **Implementing Logout Functionality**: 1 hour (as estimated)
+- **Implementing Light and Dark Themes**: 1 hour (1 hour under the estimate)
+- **Error Handling and Alerts Display**: 10 hours (7 hour over the estimate)
+- **Testing on Various Devices and iOS Versions**: 2 hours (1 hour under the estimate)
+
+**Total actual time: 40 hours**
+
+#### Analysis:
+The project exceeded the initial time estimate by 4 hours. The primary factors contributing to the additional time included unexpected complexities in handling VK API responses, handling various possible error cases, and refactoring code for better separation of concerns. The OAuth implementation also required much more time than anticipated due to the recent changes in VK development policy.
+
+## Potential Improvements
+1. Codebase optimization and refactoring:
+    - Further refactor the code to enhance modularity and reusability, potentially transitioning towards a more component-based architecture like MVP or MVVM.
+    - Implement unit tests and UI tests to ensure better coverage and stability.
+
+2. Advanced Libraries:
+    - Integrate Alamofire for more efficient networking.
+    - Integrate Core Data or Realm for more efficient data storage and retrieval.
+
+3. User Experience:
+    - Add custom loading animations via Core Animation or Lottie.
+
+## Conclusion
+The MobileUpGallery project was successfully completed and now represents a feature-complete iOS app that meets the initial requirements. The time I spent working on the project provided me with valuable insights and experience in integrating external APIs, handling various error cases, writing generic functions, configuring app themes for both light and dark modes, and organizing and structuring my code. I believe that this project can serve as a foundation for the development of a more complex app with potential real-world implications. I’m grateful for the opportunity to work on this project.
