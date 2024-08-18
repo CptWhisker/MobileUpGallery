@@ -17,7 +17,8 @@ final class AlertPresenterService {
             switch action {
                 
             case .reload:
-                alert.addAction(UIAlertAction(title: "Reload", style: .default) { _ in
+                alert.addAction(UIAlertAction(title: "Reload", style: .default) { [weak viewController] _ in
+                    
                     if let webViewVC = viewController as? WebViewViewController {
                         webViewVC.reloadTapped()
                     } else if let galleryVC = viewController as? GalleryViewController {
@@ -30,10 +31,10 @@ final class AlertPresenterService {
                 })
                 
             case .cancel:
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default) { _ in
+                alert.addAction(UIAlertAction(title: "Cancel", style: .default) { [weak viewController] _ in
                     if let webViewVC = viewController as? WebViewViewController {
                         webViewVC.dismiss(animated: true, completion: nil)
-                    } else if let viewController = viewController.navigationController {
+                    } else if let viewController = viewController?.navigationController {
                         viewController.popViewController(animated: true)
                     }
                 })
@@ -42,7 +43,7 @@ final class AlertPresenterService {
                 alert.addAction(UIAlertAction(title: "Ok", style: .default))
                 
             case .relogin:
-                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { _ in
+                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak viewController] _ in
                     if let galleryVC = viewController as? GalleryViewController {
                         galleryVC.logoutTapped()
                     }
