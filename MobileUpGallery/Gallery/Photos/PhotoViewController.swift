@@ -117,7 +117,10 @@ final class PhotoViewController: UIViewController {
     // MARK: - Private Methods
     private func loadAndDisplayImage() {
         guard let photoString = photo.largeURL,
-              let imageURL = URL(string: photoString) else { return }
+              let imageURL = URL(string: photoString) else {
+            showAlert(title: "Error", message: "The image URL is invalid", actions: [.cancel])
+            return
+        }
         
         photoView.kf.indicatorType = .activity
         photoView.kf.setImage(with: imageURL) { [weak self] result in
@@ -127,7 +130,7 @@ final class PhotoViewController: UIViewController {
                 photoView.frame.size = imageResult.image.size
                 rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure(let error):
-                print("ERROR", error.localizedDescription)
+                showAlert(title: "Error", message: "Error while loading image", actions: [.reload, .cancel])
             }
         }
     }
@@ -138,9 +141,15 @@ final class PhotoViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    private func showAlert(title: String, message: String, actions: [AlertActions]) {
+        AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+    }
+    
     // MARK: - Actions
     @objc private func shareTapped() {
-        guard let image = photoView.image else { return }
+        guard let image = photoView.image else { 
+            showAlert(title: "Error", message: "There is no image available to share", actions: [.dismiss])
+            return }
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
@@ -150,12 +159,17 @@ final class PhotoViewController: UIViewController {
             
             if completed {
                 if activityType == .saveToCameraRoll {
-                    self.showActivityAlert(title: "Success", message: "Photo saved to your gallery")
+                    self.showAlert(title: "Success", message: "Photo saved to your gallery", actions: [.dismiss])
                 }
             } else if let error = activityError {
-                self.showActivityAlert(title: "Error", message: error.localizedDescription)
+                self.showAlert(title: "Error", message: error.localizedDescription, actions: [.dismiss])
             }
         }
+    }
+    
+    // MARK: - Public Methods
+    func reloadTapped() {
+        loadAndDisplayImage()
     }
 }
 

@@ -1,11 +1,6 @@
 import UIKit
 import WebKit
 
-// MARK: - AlertActions enum
-enum AlertActions {
-    case reload, cancel, dismiss, relogin
-}
-
 final class WebViewViewController: UIViewController {
     // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
@@ -150,38 +145,12 @@ final class WebViewViewController: UIViewController {
     
     // MARK: - Showing Alert
     private func showAlert(title: String, message: String, actions: [AlertActions]) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        actions.forEach {
-            switch $0 {
-            case .reload:
-                alert.addAction(UIAlertAction(title: "Reload Page", style: .default, handler: { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.loadAuthView()
-                }))
-                
-            case .cancel:
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.dismiss(animated: true, completion: nil)
-                }))
-            case .dismiss:
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .default) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.dismiss(animated: true, completion: nil)
-                })
-            case .relogin:
-                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.dismiss(animated: true, completion: nil)
-                })
-            }
-        }
-        present(alert, animated: true)
+        AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+    }
+    
+    // MARK: - Public Methods
+    func reloadTapped() {
+        loadAuthView()
     }
 }
 

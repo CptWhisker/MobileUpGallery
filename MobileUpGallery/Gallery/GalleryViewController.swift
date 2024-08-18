@@ -196,7 +196,7 @@ final class GalleryViewController: UIViewController {
                 message = "Failed to fetch the data. Please try again."
                 actions = [.reload]
             case .decodingError:
-                message = "Failed to process the data received from the server. Please try again."
+                message = "Authorization token invalid or expired. Please relogin"
                 actions = [.relogin, .reload]
             }
         
@@ -205,42 +205,7 @@ final class GalleryViewController: UIViewController {
     
     // MARK: - Showing Alert
     private func showAlert(title: String, message: String, actions: [AlertActions]) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        actions.forEach { action in
-            switch action {
-            case .reload:
-                alert.addAction(UIAlertAction(title: "Reload", style: .default) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    if segmentedControl.selectedSegmentIndex == 0 {
-                        self.loadPhotos()
-                    } else {
-                        self.loadVideos()
-                    }
-                })
-            case .cancel:
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.dismiss(animated: true, completion: nil)
-                })
-            case .dismiss:
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .default) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.dismiss(animated: true, completion: nil)
-                })
-            case .relogin:
-                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak self] _ in
-                    guard let self else { return }
-                    
-                    self.logout()
-                })
-            }
-        }
-        
-        present(alert, animated: true)
+        AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
     }
     
     // MARK: - Logging Out
@@ -276,6 +241,19 @@ final class GalleryViewController: UIViewController {
     }
     
     @objc private func logoutButtonTapped() {
+        logout()
+    }
+    
+    // MARK: - Public Methods
+    func reloadTapped() {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            loadPhotos()
+        } else {
+            loadVideos()
+        }
+    }
+    
+    func logoutTapped() {
         logout()
     }
 }
