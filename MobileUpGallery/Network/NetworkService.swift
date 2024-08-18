@@ -57,10 +57,9 @@ final class NetworkService<T: Decodable> {
                 let decodedResponse = try self.decoder.decode(GenericResponse<T>.self, from: data)
                 
                 if self.totalItemsCount == nil {
-                    print(decodedResponse.response.count)
                     self.totalItemsCount = decodedResponse.response.count
                 }
-                
+
                 completion(.success(decodedResponse.response.items))
             } catch {
                 completion(.failure(NetworkServiceError.decodingError))

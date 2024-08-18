@@ -9,6 +9,8 @@ final class GalleryViewController: UIViewController {
     )
     
     // MARK: - Properties
+    private let testMode = true
+    
     private var photos = [Photo]()
     private var videos = [Video]()
     private let photosNetworkService: NetworkService<Photo>
@@ -64,8 +66,6 @@ final class GalleryViewController: UIViewController {
         
         configureInterface()
         loadPhotos()
-//        loadVideos()
-//        loadMockVideos()
     }
     
     // MARK: - Interface Configuration
@@ -126,8 +126,7 @@ final class GalleryViewController: UIViewController {
                 self.isLoadingPhotos = false
                 switch result {
                 case .success(let newPhotos):
-                    self.photos.append(contentsOf: newPhotos)
-                    self.photosCollectionView.reloadData()
+                    self.performPhotosBatchUpdate(with: newPhotos)
                     self.photosNetworkService.increaseOffset()
                 case .failure(let error):
                     self.handleNetworkError(error)
@@ -148,8 +147,7 @@ final class GalleryViewController: UIViewController {
                 self.isLoadingVideos = false
                 switch result {
                 case .success(let newVideos):
-                    self.videos.append(contentsOf: newVideos)
-                    self.videosCollectionView.reloadData()
+                    self.performVideosBatchUpdate(newVideos: newVideos)
                     self.videosNetworkService.increaseOffset()
                 case .failure(let error):
                     self.handleNetworkError(error)
@@ -163,12 +161,36 @@ final class GalleryViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
+            var mockVideos = [Video]()
+            
             for _ in 0...5 {
-                self.videos.append(self.mockVideo)
+                mockVideos.append(self.mockVideo)
             }
             
-            self.videosCollectionView.reloadData()
+            self.performVideosBatchUpdate(newVideos: mockVideos)
         }
+    }
+    
+    // MARK: Performig Batch Updates
+    private func performPhotosBatchUpdate(with newPhotos: [Photo]) {
+        let startIndex = self.photos.count
+        self.photos.append(contentsOf: newPhotos)
+        let endIndex = self.photos.count - 1
+        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+        
+        self.photosCollectionView.performBatchUpdates({
+            self.photosCollectionView.insertItems(at: indexPaths)
+        }, completion: nil)
+    }
+    
+    private func performVideosBatchUpdate(newVideos: [Video]) {
+        let startIndex = self.videos.count
+        self.videos.append(contentsOf: newVideos)
+        let endIndex = self.videos.count - 1
+        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+        self.videosCollectionView.performBatchUpdates({
+            self.videosCollectionView.insertItems(at: indexPaths)
+        }, completion: nil)
     }
     
     // MARK: - NetworkError Handling
@@ -236,8 +258,11 @@ final class GalleryViewController: UIViewController {
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
         
         if sender.selectedSegmentIndex == 1 && videos.isEmpty {
-//            loadVideos()
-            loadMockVideos()
+            if testMode {
+                loadMockVideos()
+            } else {
+                loadVideos()
+            }
         }
     }
     
@@ -250,8 +275,11 @@ final class GalleryViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 0 {
             loadPhotos()
         } else {
-//            loadVideos()
-            loadMockVideos()
+            if testMode {
+                loadMockVideos()
+            } else {
+                loadVideos()
+            }
         }
     }
     
@@ -326,8 +354,11 @@ extension GalleryViewController: UICollectionViewDelegate {
             }
         } else {
             if indexPath.item == videos.count - 5 {
-//                loadVideos()
-                loadMockVideos()
+                if testMode {
+                    loadMockVideos()
+                } else {
+                    loadVideos()
+                }
             }
         }
     }

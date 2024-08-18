@@ -125,8 +125,8 @@ final class PhotoViewController: UIViewController {
             case .success(let imageResult):
                 photoView.frame.size = imageResult.image.size
                 rescaleAndCenterImageInScrollView(image: imageResult.image)
-            case .failure(let error):
-                showAlert(title: "Error", message: "Error while loading image: \(error.localizedDescription)", actions: [.reload, .cancel])
+            case .failure(_):
+                showAlert(title: "Error", message: "Error while loading image", actions: [.reload, .cancel])
             }
         }
     }
