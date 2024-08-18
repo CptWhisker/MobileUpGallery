@@ -171,24 +171,32 @@ final class GalleryViewController: UIViewController {
     
     // MARK: Performig Batch Updates
     private func performPhotosBatchUpdate(with newPhotos: [Photo]) {
-        let startIndex = self.photos.count
-        self.photos.append(contentsOf: newPhotos)
-        let endIndex = self.photos.count - 1
-        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
-        
-        self.photosCollectionView.performBatchUpdates({
-            self.photosCollectionView.insertItems(at: indexPaths)
-        }, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let startIndex = self.photos.count
+            self.photos.append(contentsOf: newPhotos)
+            let endIndex = self.photos.count - 1
+            let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+            
+            self.photosCollectionView.performBatchUpdates({
+                self.photosCollectionView.insertItems(at: indexPaths)
+            }, completion: nil)
+        }
     }
     
     private func performVideosBatchUpdate(newVideos: [Video]) {
-        let startIndex = self.videos.count
-        self.videos.append(contentsOf: newVideos)
-        let endIndex = self.videos.count - 1
-        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
-        self.videosCollectionView.performBatchUpdates({
-            self.videosCollectionView.insertItems(at: indexPaths)
-        }, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let startIndex = self.videos.count
+            self.videos.append(contentsOf: newVideos)
+            let endIndex = self.videos.count - 1
+            let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+            self.videosCollectionView.performBatchUpdates({
+                self.videosCollectionView.insertItems(at: indexPaths)
+            }, completion: nil)
+        }
     }
     
     // MARK: - NetworkError Handling
@@ -225,7 +233,11 @@ final class GalleryViewController: UIViewController {
     
     // MARK: - Showing Alert
     private func showAlert(title: String, message: String, actions: [AlertActions]) {
-        AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+        }
     }
     
     // MARK: - Logging Out
