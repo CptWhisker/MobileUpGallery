@@ -24,6 +24,8 @@ final class AlertPresenterService {
                         galleryVC.reloadTapped()
                     } else if let photoVC = viewController as? PhotoViewController {
                         photoVC.reloadTapped()
+                    } else if let videoVC = viewController as? VideoViewController {
+                        videoVC.reloadTapped()
                     }
                 })
                 

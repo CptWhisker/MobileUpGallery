@@ -131,6 +131,11 @@ final class VideoViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - Public Methods
+    func reloadTapped() {
+        loadVideo()
+    }
 }
 
 extension VideoViewController: WKNavigationDelegate {

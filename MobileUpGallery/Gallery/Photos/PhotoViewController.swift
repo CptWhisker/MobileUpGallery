@@ -112,8 +112,6 @@ final class PhotoViewController: UIViewController {
         photoScrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
     }
     
-    
-    
     // MARK: - Private Methods
     private func loadAndDisplayImage() {
         guard let photoString = photo.largeURL,
