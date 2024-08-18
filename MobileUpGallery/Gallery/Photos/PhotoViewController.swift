@@ -18,7 +18,6 @@ final class PhotoViewController: UIViewController {
     private lazy var photoView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .cellBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -120,7 +119,6 @@ final class PhotoViewController: UIViewController {
             return
         }
         
-        photoView.kf.indicatorType = .activity
         photoView.kf.setImage(with: imageURL) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -128,7 +126,7 @@ final class PhotoViewController: UIViewController {
                 photoView.frame.size = imageResult.image.size
                 rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure(let error):
-                showAlert(title: "Error", message: "Error while loading image", actions: [.reload, .cancel])
+                showAlert(title: "Error", message: "Error while loading image: \(error.localizedDescription)", actions: [.reload, .cancel])
             }
         }
     }

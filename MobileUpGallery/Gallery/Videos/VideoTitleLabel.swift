@@ -1,8 +1,10 @@
 import UIKit
 
 final class VideoTitleLabel: UILabel {
+    // MARK: - Properties
     let textInsets = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
     
+    // MARK: - Methods
     override func drawText(in rect: CGRect) {
         let insetRect = rect.inset(by: textInsets)
         

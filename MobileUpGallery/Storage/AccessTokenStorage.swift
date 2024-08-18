@@ -2,6 +2,7 @@ import Foundation
 import SwiftKeychainWrapper
 
 final class AccessTokenStorage {
+    // MARK: - Properties
     static let shared = AccessTokenStorage()
     private let keyChain = KeychainWrapper.standard
     private let key = "accessToken"

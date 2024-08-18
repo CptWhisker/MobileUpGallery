@@ -1,6 +1,6 @@
 import UIKit
 
-// MARK: - AlertActions enum
+// MARK: - AlertActions Enum
 enum AlertActions {
     case reload, cancel, dismiss, relogin
 }

@@ -138,6 +138,7 @@ final class VideoViewController: UIViewController {
     }
 }
 
+// MARK: - WKNavigationDelegate
 extension VideoViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         showAlert(message: "Error while loading video", actions: [.reload, .cancel])

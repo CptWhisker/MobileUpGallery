@@ -48,6 +48,7 @@ struct PhotosRequestConfiguration {
     }
 }
 
+// MARK: - RequestConfigurationProtocol
 extension PhotosRequestConfiguration: RequestConfigurationProtocol {
     var queryItems: [URLQueryItem] {
         return [

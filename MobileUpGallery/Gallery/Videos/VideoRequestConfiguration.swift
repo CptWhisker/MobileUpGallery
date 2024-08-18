@@ -34,6 +34,7 @@ struct VideoRequestConfiguration {
     }
 }
 
+// MARK: - RequestConfigurationProtocol
 extension VideoRequestConfiguration: RequestConfigurationProtocol {
     var queryItems: [URLQueryItem] {
         return [

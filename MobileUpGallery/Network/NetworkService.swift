@@ -1,5 +1,13 @@
 import UIKit
 
+// MARK: - NetworkService Errors
+enum NetworkServiceError: Error {
+    case dataTaskError
+    case responseError
+    case dataFetchError
+    case decodingError
+}
+
 final class NetworkService<T: Decodable> {
     // MARK: - Properties
     private let session: URLSession
@@ -8,6 +16,7 @@ final class NetworkService<T: Decodable> {
     private var offset: Int = 0
     private let decoder: JSONDecoder
     
+    // MARK: - Initializers
     init(session: URLSession = .shared, configuration: RequestConfigurationProtocol, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.configuration = configuration
@@ -61,6 +70,7 @@ final class NetworkService<T: Decodable> {
         task.resume()
     }
     
+    // MARK: - Generating URLRequest
     private func generateRequest(with accessToken: String) -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = configuration.scheme

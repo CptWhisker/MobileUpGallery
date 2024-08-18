@@ -236,7 +236,8 @@ final class GalleryViewController: UIViewController {
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
         
         if sender.selectedSegmentIndex == 1 && videos.isEmpty {
-            loadVideos()
+//            loadVideos()
+            loadMockVideos()
         }
     }
     
@@ -249,7 +250,8 @@ final class GalleryViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 0 {
             loadPhotos()
         } else {
-            loadVideos()
+//            loadVideos()
+            loadMockVideos()
         }
     }
     

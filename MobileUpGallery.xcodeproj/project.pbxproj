@@ -19,7 +19,6 @@
 		CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */; };
 		CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D32C6D480800E88229 /* VKResponseBody.swift */; };
 		CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */; };
-		CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */; };
 		CEF408DD2C6D576C00E88229 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408DC2C6D576C00E88229 /* Kingfisher */; };
 		CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */; };
 		CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E22C6E5E8000E88229 /* VideoCell.swift */; };
@@ -46,7 +45,6 @@
 		CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenStorage.swift; sourceTree = "<group>"; };
 		CEF408D32C6D480800E88229 /* VKResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponseBody.swift; sourceTree = "<group>"; };
 		CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRequestConfiguration.swift; sourceTree = "<group>"; };
-		CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceErrors.swift; sourceTree = "<group>"; };
 		CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CEF408E22C6E5E8000E88229 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CEF408E62C6EA09600E88229 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
@@ -95,11 +93,11 @@
 				CEF427D02C71FA500081D3C7 /* Authentication */,
 				CEF427D12C71FA7D0081D3C7 /* Gallery */,
 				CEF427D42C71FAE00081D3C7 /* Network */,
+				CEF427D82C7232330081D3C7 /* Services */,
 				CEF427D52C71FB0F0081D3C7 /* Storage */,
 				CEF408932C6AB73A00E88229 /* Assets.xcassets */,
 				CEF408952C6AB73A00E88229 /* LaunchScreen.storyboard */,
 				CEF408982C6AB73A00E88229 /* Info.plist */,
-				CEF427D62C721FEE0081D3C7 /* AlertPresenterService.swift */,
 			);
 			path = MobileUpGallery;
 			sourceTree = "<group>";
@@ -149,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				CEF427CE2C71F58A0081D3C7 /* NetworkService.swift */,
-				CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */,
 				CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */,
 				CEF408D32C6D480800E88229 /* VKResponseBody.swift */,
 			);
@@ -162,6 +159,14 @@
 				CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		CEF427D82C7232330081D3C7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEF427D62C721FEE0081D3C7 /* AlertPresenterService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,7 +250,6 @@
 				CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */,
 				CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */,
 				CEF4088F2C6AB73400E88229 /* AuthViewController.swift in Sources */,
-				CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */,
 				CEF4088B2C6AB73400E88229 /* AppDelegate.swift in Sources */,
 				CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */,
 				CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */,
