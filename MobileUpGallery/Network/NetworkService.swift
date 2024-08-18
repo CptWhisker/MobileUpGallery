@@ -27,14 +27,15 @@ final class NetworkService<T: Decodable> {
     }
     
     // MARK: - Fetching Photos
-    func fetchItems(completion: @escaping (Result<[T], Error>) -> Void) {
+    func fetchItems(completion: @escaping (Result<[T], Error>) -> Void) {        
         if let totalItemsCount, offset >= totalItemsCount {
+            completion(.success([]))
             return
         }
         
         guard let accessToken = AccessTokenStorage.shared.accessToken,
               let request = generateRequest(with: accessToken) else {
-            print("ERROR")
+            completion(.failure(NetworkServiceError.dataFetchError))
             return
         }
         
@@ -103,5 +104,10 @@ final class NetworkService<T: Decodable> {
     
     private func increaseOffset() {
         offset += configuration.count
+    }
+    
+    // MARK: - Public Methods
+    func resetOffset() {
+        offset = 0
     }
 }

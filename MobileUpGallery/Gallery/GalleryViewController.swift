@@ -50,7 +50,7 @@ final class GalleryViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshPhotos), for: .valueChanged)
         return refreshControl
     }()
-
+    
     private lazy var videosRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshVideos), for: .valueChanged)
@@ -150,10 +150,13 @@ final class GalleryViewController: UIViewController {
                 
                 switch result {
                 case .success(let newPhotos):
-                    self.performPhotosBatchUpdate(with: newPhotos)
+                    if newPhotos.isEmpty {
+                        return
+                    } else {
+                        self.performPhotosBatchUpdate(with: newPhotos)
+                    }
                 case .failure(let error):
                     self.handleNetworkError(error)
-                    print("photosNetworkService ERROR", error)
                 }
             }
         }
@@ -179,10 +182,13 @@ final class GalleryViewController: UIViewController {
                 
                 switch result {
                 case .success(let newVideos):
-                    self.performVideosBatchUpdate(newVideos: newVideos)
+                    if newVideos.isEmpty {
+                        return
+                    } else {
+                        self.performVideosBatchUpdate(newVideos: newVideos)
+                    }
                 case .failure(let error):
                     self.handleNetworkError(error)
-                    print("videosNetworkService ERROR", error)
                 }
             }
         }
@@ -204,11 +210,25 @@ final class GalleryViewController: UIViewController {
     
     // MARK: - Refreshing Page
     @objc private func refreshPhotos() {
+        resetPhotosData()
         loadPhotos()
     }
     
     @objc private func refreshVideos() {
+        resetVideosData()
         loadVideos()
+    }
+    
+    private func resetPhotosData() {
+            photos.removeAll()
+            photosNetworkService.resetOffset()
+            photosCollectionView.reloadData()
+    }
+    
+    private func resetVideosData() {
+            videos.removeAll()
+            videosNetworkService.resetOffset()
+            videosCollectionView.reloadData()
     }
     
     // MARK: - Performig Batch Updates
@@ -357,7 +377,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         
         if reuseIdentifier == "PhotoCell" {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PhotoCell else {
-                print("ERROR")
+                print("[GalleryViewController cellForItemAt]: TypeCast error - Unable to dequeue cell as PhotoCell")
                 return UICollectionViewCell()
             }
             
@@ -367,7 +387,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         }
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else {
-            print("ERROR")
+            print("[GalleryViewController cellForItemAt]: TypeCast error - Unable to dequeue cell as VideoCell")
             return UICollectionViewCell()
         }
         
@@ -401,7 +421,7 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if collectionView == photosCollectionView {
+        if !photos.isEmpty && collectionView == photosCollectionView {
             if indexPath.item == photos.count - 6 {
                 loadPhotos()
             }
