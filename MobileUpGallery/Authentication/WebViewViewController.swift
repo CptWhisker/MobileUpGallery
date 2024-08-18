@@ -3,7 +3,7 @@ import WebKit
 
 // MARK: - AlertActions enum
 enum AlertActions {
-    case reload, cancel
+    case reload, cancel, dismiss, relogin
 }
 
 final class WebViewViewController: UIViewController {
@@ -167,6 +167,18 @@ final class WebViewViewController: UIViewController {
                     
                     self.dismiss(animated: true, completion: nil)
                 }))
+            case .dismiss:
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                })
+            case .relogin:
+                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                })
             }
         }
         present(alert, animated: true)

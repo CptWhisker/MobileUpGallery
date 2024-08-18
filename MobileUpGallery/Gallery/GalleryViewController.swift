@@ -65,7 +65,7 @@ final class GalleryViewController: UIViewController {
         configureInterface()
         loadPhotos()
 //        loadVideos()
-        loadMockVideos()
+//        loadMockVideos()
     }
     
     // MARK: - Interface Configuration
@@ -130,6 +130,7 @@ final class GalleryViewController: UIViewController {
                     self.photosCollectionView.reloadData()
                     self.photosNetworkService.increaseOffset()
                 case .failure(let error):
+                    self.handleNetworkError(error)
                     print("photosNetworkService ERROR", error)
                 }
             }
@@ -151,6 +152,7 @@ final class GalleryViewController: UIViewController {
                     self.videosCollectionView.reloadData()
                     self.videosNetworkService.increaseOffset()
                 case .failure(let error):
+                    self.handleNetworkError(error)
                     print("videosNetworkService ERROR", error)
                 }
             }
@@ -169,17 +171,80 @@ final class GalleryViewController: UIViewController {
         }
     }
     
-    // MARK: - Actions
-    @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
-        videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
+    // MARK: - NetworkError Handling
+    private func handleNetworkError(_ error: Error) {
+        let title = "Error"
+        var message: String
         
-        if sender.selectedSegmentIndex == 1 && videos.isEmpty {
-//            loadVideos()
+        let actions: [AlertActions]
+        
+        guard let networkError = error as? NetworkServiceError  else {
+            message = "Unexpected error while fetching data from server"
+            actions = [.reload, .relogin]
+            showAlert(title: title, message: message, actions: actions)
+            return
         }
+        
+            switch networkError {
+            case .dataTaskError:
+                message = "Failed to load data. Please check your internet connection and try again."
+                actions = [.reload]
+            case .responseError:
+                message = "Received an invalid response from the server. Please try again later."
+                actions = [.reload]
+            case .dataFetchError:
+                message = "Failed to fetch the data. Please try again."
+                actions = [.reload]
+            case .decodingError:
+                message = "Failed to process the data received from the server. Please try again."
+                actions = [.relogin, .reload]
+            }
+        
+        showAlert(title: title, message: message, actions: actions)
     }
     
-    @objc private func logoutButtonTapped() {
+    // MARK: - Showing Alert
+    private func showAlert(title: String, message: String, actions: [AlertActions]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        actions.forEach { action in
+            switch action {
+            case .reload:
+                alert.addAction(UIAlertAction(title: "Reload", style: .default) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    if segmentedControl.selectedSegmentIndex == 0 {
+                        self.loadPhotos()
+                    } else {
+                        self.loadVideos()
+                    }
+                })
+            case .cancel:
+                alert.addAction(UIAlertAction(title: "Cancel", style: .default) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                })
+            case .dismiss:
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                })
+            case .relogin:
+                alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak self] _ in
+                    guard let self else { return }
+                    
+                    self.logout()
+                })
+            }
+        }
+        
+        present(alert, animated: true)
+    }
+    
+    // MARK: - Logging Out
+    private func logout() {
         AccessTokenStorage.shared.accessToken = nil
         
         guard let windowScene = UIApplication.shared.connectedScenes
@@ -198,6 +263,20 @@ final class GalleryViewController: UIViewController {
             animations: nil,
             completion: nil
         )
+}
+    
+    // MARK: - Actions
+    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        photosCollectionView.isHidden = sender.selectedSegmentIndex != 0
+        videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
+        
+        if sender.selectedSegmentIndex == 1 && videos.isEmpty {
+            loadVideos()
+        }
+    }
+    
+    @objc private func logoutButtonTapped() {
+        logout()
     }
 }
 
