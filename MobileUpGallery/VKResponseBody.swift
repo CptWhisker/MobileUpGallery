@@ -1,15 +1,16 @@
 import Foundation
 
-// MARK: - Photos Response
-struct VKPhotosResponse: Decodable {
-    let response: Photos
+// MARK: - Generic Response
+struct GenericResponse<T: Decodable>: Decodable {
+    let response: Response<T>
 }
 
-struct Photos: Decodable {
+struct Response<T: Decodable>: Decodable {
     let count: Int
-    let items: [Photo]
+    let items: [T]
 }
 
+// MARK: - Photo Model
 struct Photo: Decodable {
     let date: Int
     let sizes: [PhotoSize]
@@ -38,16 +39,7 @@ struct PhotoSize: Decodable {
     let url: String
 }
 
-// MARK: - Videos Response
-struct VKVideosResonse: Decodable {
-    let response: Videos
-}
-
-struct Videos: Decodable {
-    let count: Int
-    let items: [Video]
-}
-
+// MARK: - Video Model
 struct Video: Decodable {
     let title: String
     let player: String
