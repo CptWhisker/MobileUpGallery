@@ -18,12 +18,10 @@
 		CEF408A62C6BF61300E88229 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408A52C6BF61300E88229 /* SwiftKeychainWrapper */; };
 		CEF408A82C6BF66E00E88229 /* AccessTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */; };
 		CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D32C6D480800E88229 /* VKResponseBody.swift */; };
-		CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */; };
 		CEF408D82C6D504F00E88229 /* PhotosRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */; };
 		CEF408DA2C6D535100E88229 /* NetworkServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */; };
 		CEF408DD2C6D576C00E88229 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF408DC2C6D576C00E88229 /* Kingfisher */; };
 		CEF408DF2C6D57BA00E88229 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */; };
-		CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */; };
 		CEF408E32C6E5E8000E88229 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E22C6E5E8000E88229 /* VideoCell.swift */; };
 		CEF408E72C6EA09600E88229 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408E62C6EA09600E88229 /* PhotoViewController.swift */; };
 		CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */; };
@@ -46,11 +44,9 @@
 		CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenStorage.swift; sourceTree = "<group>"; };
 		CEF408D32C6D480800E88229 /* VKResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponseBody.swift; sourceTree = "<group>"; };
-		CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosNetworkService.swift; sourceTree = "<group>"; };
 		CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRequestConfiguration.swift; sourceTree = "<group>"; };
 		CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceErrors.swift; sourceTree = "<group>"; };
 		CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
-		CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkService.swift; sourceTree = "<group>"; };
 		CEF408E22C6E5E8000E88229 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CEF408E62C6EA09600E88229 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTitleLabel.swift; sourceTree = "<group>"; };
@@ -94,29 +90,75 @@
 			children = (
 				CEF4088A2C6AB73400E88229 /* AppDelegate.swift */,
 				CEF4088C2C6AB73400E88229 /* SceneDelegate.swift */,
-				CEF4088E2C6AB73400E88229 /* AuthViewController.swift */,
+				CEF427D02C71FA500081D3C7 /* Authentication */,
+				CEF427D12C71FA7D0081D3C7 /* Gallery */,
+				CEF427D42C71FAE00081D3C7 /* Network */,
+				CEF427D52C71FB0F0081D3C7 /* Storage */,
 				CEF408932C6AB73A00E88229 /* Assets.xcassets */,
 				CEF408952C6AB73A00E88229 /* LaunchScreen.storyboard */,
 				CEF408982C6AB73A00E88229 /* Info.plist */,
-				CEF4089E2C6BBBC100E88229 /* WebViewViewController.swift */,
-				CEF408A02C6BEBC900E88229 /* AuthConfiguration.swift */,
-				CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */,
-				CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */,
-				CEF408D32C6D480800E88229 /* VKResponseBody.swift */,
-				CEF408D52C6D4BFA00E88229 /* PhotosNetworkService.swift */,
-				CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */,
-				CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */,
-				CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */,
-				CEF408E02C6E5C2B00E88229 /* VideosNetworkService.swift */,
-				CEF408E22C6E5E8000E88229 /* VideoCell.swift */,
-				CEF408E62C6EA09600E88229 /* PhotoViewController.swift */,
-				CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */,
-				CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */,
-				CEF427C82C70A2820081D3C7 /* VideoRequestConfiguration.swift */,
-				CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */,
-				CEF427CE2C71F58A0081D3C7 /* NetworkService.swift */,
 			);
 			path = MobileUpGallery;
+			sourceTree = "<group>";
+		};
+		CEF427D02C71FA500081D3C7 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4088E2C6AB73400E88229 /* AuthViewController.swift */,
+				CEF4089E2C6BBBC100E88229 /* WebViewViewController.swift */,
+				CEF408A02C6BEBC900E88229 /* AuthConfiguration.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		CEF427D12C71FA7D0081D3C7 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				CEF408A22C6BF1DF00E88229 /* GalleryViewController.swift */,
+				CEF427D32C71FAB50081D3C7 /* Videos */,
+				CEF427D22C71FA910081D3C7 /* Photos */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		CEF427D22C71FA910081D3C7 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				CEF408E62C6EA09600E88229 /* PhotoViewController.swift */,
+				CEF408DE2C6D57BA00E88229 /* PhotoCell.swift */,
+				CEF408D72C6D504F00E88229 /* PhotosRequestConfiguration.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		CEF427D32C71FAB50081D3C7 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				CEF427C42C6FB1A70081D3C7 /* VideoViewController.swift */,
+				CEF408E22C6E5E8000E88229 /* VideoCell.swift */,
+				CEF427C02C6F9D870081D3C7 /* VideoTitleLabel.swift */,
+				CEF427C82C70A2820081D3C7 /* VideoRequestConfiguration.swift */,
+			);
+			path = Videos;
+			sourceTree = "<group>";
+		};
+		CEF427D42C71FAE00081D3C7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CEF427CE2C71F58A0081D3C7 /* NetworkService.swift */,
+				CEF408D92C6D535100E88229 /* NetworkServiceErrors.swift */,
+				CEF427CC2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift */,
+				CEF408D32C6D480800E88229 /* VKResponseBody.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CEF427D52C71FB0F0081D3C7 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CEF408A72C6BF66E00E88229 /* AccessTokenStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,10 +250,8 @@
 				CEF427C52C6FB1A70081D3C7 /* VideoViewController.swift in Sources */,
 				CEF427CD2C71F2F20081D3C7 /* RequestConfigurationProtocol.swift in Sources */,
 				CEF427CF2C71F58A0081D3C7 /* NetworkService.swift in Sources */,
-				CEF408D62C6D4BFA00E88229 /* PhotosNetworkService.swift in Sources */,
 				CEF427C12C6F9D870081D3C7 /* VideoTitleLabel.swift in Sources */,
 				CEF408A32C6BF1DF00E88229 /* GalleryViewController.swift in Sources */,
-				CEF408E12C6E5C2B00E88229 /* VideosNetworkService.swift in Sources */,
 				CEF408D42C6D480800E88229 /* VKResponseBody.swift in Sources */,
 				CEF427C92C70A2820081D3C7 /* VideoRequestConfiguration.swift in Sources */,
 				CEF408A12C6BEBC900E88229 /* AuthConfiguration.swift in Sources */,

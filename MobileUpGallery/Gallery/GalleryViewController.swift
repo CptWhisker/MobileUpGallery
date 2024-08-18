@@ -11,8 +11,8 @@ final class GalleryViewController: UIViewController {
     // MARK: - Properties
     private var photos = [Photo]()
     private var videos = [Video]()
-    private let photosNetworkService = PhotosNetworkService()
-    private let videosNetworkService = VideosNetworkService()
+    private let photosNetworkService: NetworkService<Photo>
+    private let videosNetworkService: NetworkService<Video>
     private var isLoadingPhotos = false
     private var isLoadingVideos = false
     
@@ -42,6 +42,21 @@ final class GalleryViewController: UIViewController {
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "VideoCell")
         return collectionView
     }()
+    
+    // MARK: - Initializers
+    init() {
+        let photosConfiguration: PhotosRequestConfiguration = .mobileUpOffice
+        let videosConfiguration: VideoRequestConfiguration = .standard
+        
+        self.photosNetworkService = NetworkService(configuration: photosConfiguration)
+        self.videosNetworkService = NetworkService(configuration: videosConfiguration)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -105,7 +120,7 @@ final class GalleryViewController: UIViewController {
                         
         isLoadingPhotos = true
         
-        photosNetworkService.fetchPhotos() { [weak self] result in
+        photosNetworkService.fetchItems() { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.isLoadingPhotos = false
@@ -126,7 +141,7 @@ final class GalleryViewController: UIViewController {
         
         isLoadingVideos = true
         
-        videosNetworkService.fetchVideos() { [weak self] result in
+        videosNetworkService.fetchItems() { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.isLoadingVideos = false
