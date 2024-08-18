@@ -45,6 +45,18 @@ final class GalleryViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var photosRefreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshPhotos), for: .valueChanged)
+        return refreshControl
+    }()
+
+    private lazy var videosRefreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshVideos), for: .valueChanged)
+        return refreshControl
+    }()
+    
     // MARK: - Initializers
     init() {
         let photosConfiguration: PhotosRequestConfiguration = .mobileUpOffice
@@ -99,6 +111,9 @@ final class GalleryViewController: UIViewController {
         view.addSubview(photosCollectionView)
         view.addSubview(videosCollectionView)
         
+        photosCollectionView.refreshControl = photosRefreshControl
+        videosCollectionView.refreshControl = videosRefreshControl
+        
         NSLayoutConstraint.activate([
             photosCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
             photosCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -131,6 +146,8 @@ final class GalleryViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.isLoadingPhotos = false
+                self.photosRefreshControl.endRefreshing()
+                
                 switch result {
                 case .success(let newPhotos):
                     self.performPhotosBatchUpdate(with: newPhotos)
@@ -158,6 +175,8 @@ final class GalleryViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.isLoadingVideos = false
+                self.videosRefreshControl.endRefreshing()
+                
                 switch result {
                 case .success(let newVideos):
                     self.performVideosBatchUpdate(newVideos: newVideos)
@@ -183,7 +202,16 @@ final class GalleryViewController: UIViewController {
         }
     }
     
-    // MARK: Performig Batch Updates
+    // MARK: - Refreshing Page
+    @objc private func refreshPhotos() {
+        loadPhotos()
+    }
+    
+    @objc private func refreshVideos() {
+        loadVideos()
+    }
+    
+    // MARK: - Performig Batch Updates
     private func performPhotosBatchUpdate(with newPhotos: [Photo]) {
         let startIndex = self.photos.count
         self.photos.append(contentsOf: newPhotos)
@@ -214,19 +242,19 @@ final class GalleryViewController: UIViewController {
         switch error {
         case NetworkServiceError.dataTaskError:
             message = "Failed to load data. Please check your internet connection and try again."
-            actions = [.reload]
+            actions = [.reload, .dismiss]
             
         case NetworkServiceError.responseError:
             message = "Received an invalid response from the server. Please try again later."
-            actions = [.reload]
+            actions = [.reload, .dismiss]
             
         case NetworkServiceError.dataFetchError:
             message = "Failed to fetch the data. Please try again."
-            actions = [.reload]
+            actions = [.reload, .dismiss]
             
         case NetworkServiceError.decodingError:
             message = "Failed to decode data. Please try again."
-            actions = [.reload]
+            actions = [.reload, .dismiss]
             
         case NetworkServiceError.apiError(let code, let msg):
             switch code {
@@ -235,12 +263,12 @@ final class GalleryViewController: UIViewController {
                 actions = [.relogin]
             default:
                 message = "VK API error \(code): \(msg)"
-                actions = [.reload]
+                actions = [.reload, .dismiss]
             }
             
         default:
             message = "Unexpected error while loading data."
-            actions = [.reload]
+            actions = [.reload, .dismiss]
         }
         
         showAlert(title: title, message: message, actions: actions)

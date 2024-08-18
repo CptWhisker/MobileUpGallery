@@ -40,7 +40,7 @@ final class AlertPresenterService {
                 })
                 
             case .dismiss:
-                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                alert.addAction(UIAlertAction(title: "Continue", style: .default))
                 
             case .relogin:
                 alert.addAction(UIAlertAction(title: "Relogin", style: .destructive) { [weak viewController] _ in
