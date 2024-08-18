@@ -10,6 +10,16 @@ struct Response<T: Decodable>: Decodable {
     let items: [T]
 }
 
+// MARK: - Error Response
+struct ErrorResponse: Decodable {
+    let error: APIError
+}
+
+struct APIError: Decodable {
+    let errorCode: Int
+    let errorMsg: String
+}
+
 // MARK: - Photo Model
 struct Photo: Decodable {
     let date: Int

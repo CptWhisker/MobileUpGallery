@@ -6,6 +6,7 @@ enum NetworkServiceError: Error {
     case responseError
     case dataFetchError
     case decodingError
+    case apiError(code: Int, message: String)
 }
 
 final class NetworkService<T: Decodable> {
@@ -20,6 +21,8 @@ final class NetworkService<T: Decodable> {
     init(session: URLSession = .shared, configuration: RequestConfigurationProtocol, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.configuration = configuration
+        
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.decoder = decoder
     }
     
