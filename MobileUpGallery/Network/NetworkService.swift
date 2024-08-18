@@ -57,6 +57,15 @@ final class NetworkService<T: Decodable> {
             }
             
             do {
+                // attempt to decode for error
+                if let errorResponse = try? self.decoder.decode(ErrorResponse.self, from: data) {
+                    let errorCode = errorResponse.error.errorCode
+                    let errorMessage = errorResponse.error.errorMsg
+                    completion(.failure(NetworkServiceError.apiError(code: errorCode, message: errorMessage)))
+                    return
+                }
+                
+                // attempt to decode for data
                 let decodedResponse = try self.decoder.decode(GenericResponse<T>.self, from: data)
                 
                 if self.totalItemsCount == nil {

@@ -9,7 +9,7 @@ final class GalleryViewController: UIViewController {
     )
     
     // MARK: - Properties
-    private let testMode = true
+    private let testMode = false
     
     private var photos = [Photo]()
     private var videos = [Video]()
@@ -208,30 +208,39 @@ final class GalleryViewController: UIViewController {
     // MARK: - NetworkError Handling
     private func handleNetworkError(_ error: Error) {
         let title = "Error"
-        var message: String
-        
+        let message: String
         let actions: [AlertActions]
         
-        guard let networkError = error as? NetworkServiceError  else {
-            message = "Unexpected error while fetching data from server"
-            actions = [.reload, .relogin]
-            showAlert(title: title, message: message, actions: actions)
-            return
-        }
-        
-        switch networkError {
-        case .dataTaskError:
+        switch error {
+        case NetworkServiceError.dataTaskError:
             message = "Failed to load data. Please check your internet connection and try again."
             actions = [.reload]
-        case .responseError:
+            
+        case NetworkServiceError.responseError:
             message = "Received an invalid response from the server. Please try again later."
             actions = [.reload]
-        case .dataFetchError:
+            
+        case NetworkServiceError.dataFetchError:
             message = "Failed to fetch the data. Please try again."
             actions = [.reload]
-        case .decodingError:
-            message = "Authorization token invalid or expired. Please relogin"
-            actions = [.relogin, .reload]
+            
+        case NetworkServiceError.decodingError:
+            message = "Failed to decode data. Please try again."
+            actions = [.reload]
+            
+        case NetworkServiceError.apiError(let code, let msg):
+            switch code {
+            case 5:
+                message = "Authorization token invalid or expired. Please relogin."
+                actions = [.relogin]
+            default:
+                message = "VK API error \(code): \(msg)"
+                actions = [.reload]
+            }
+            
+        default:
+            message = "Unexpected error while loading data."
+            actions = [.reload]
         }
         
         showAlert(title: title, message: message, actions: actions)
