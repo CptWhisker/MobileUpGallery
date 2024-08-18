@@ -4,6 +4,7 @@ import Kingfisher
 final class PhotoViewController: UIViewController {
     //  MARK: - Properties
     let photo: Photo
+    private var shareButton: UIBarButtonItem?
     
     // MARK: - UI Elements
     private lazy var photoScrollView: UIScrollView = {
@@ -33,11 +34,18 @@ final class PhotoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         configureInterface()
         loadAndDisplayImage()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        LoadingHUD.dismissAnimation()
     }
     
     // MARK: - Interface Configuration
@@ -59,7 +67,10 @@ final class PhotoViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         navigationController?.navigationBar.tintColor = .accent
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareTapped))
+        
+        let shareButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItem = shareButtonItem
+        self.shareButton = shareButtonItem
     }
     
     private func configurePhotoScrollView() {
@@ -111,7 +122,7 @@ final class PhotoViewController: UIViewController {
         photoScrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
     }
     
-    // MARK: - Private Methods
+    // MARK: - Loading Photo
     private func loadAndDisplayImage() {
         guard let photoString = photo.largeURL,
               let imageURL = URL(string: photoString) else {
@@ -119,8 +130,15 @@ final class PhotoViewController: UIViewController {
             return
         }
         
+        setShareButtonState(false)
+        LoadingHUD.showAnimation()
+        
         photoView.kf.setImage(with: imageURL) { [weak self] result in
             guard let self else { return }
+            
+            LoadingHUD.dismissAnimation()
+            self.setShareButtonState(true)
+            
             switch result {
             case .success(let imageResult):
                 photoView.frame.size = imageResult.image.size
@@ -131,8 +149,14 @@ final class PhotoViewController: UIViewController {
         }
     }
     
+    // MARK: - Showing Alert
     private func showAlert(title: String, message: String, actions: [AlertActions]) {
         AlertPresenterService.shared.showAlert(on: self, title: title, message: message, actions: actions)
+    }
+    
+    // MARK: - Private Methods
+    private func setShareButtonState(_ enabled: Bool) {
+        shareButton?.isEnabled = enabled
     }
     
     // MARK: - Actions

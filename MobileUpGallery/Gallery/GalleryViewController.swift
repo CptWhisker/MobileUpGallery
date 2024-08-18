@@ -117,11 +117,18 @@ final class GalleryViewController: UIViewController {
     // MARK: - Loading Data
     private func loadPhotos() {
         guard !isLoadingPhotos else { return }
-                        
+        
         isLoadingPhotos = true
+        
+        if photos.isEmpty {
+            LoadingHUD.showAnimation()
+        }
         
         photosNetworkService.fetchItems() { [weak self] result in
             guard let self else { return }
+            
+            LoadingHUD.dismissAnimation()
+            
             DispatchQueue.main.async {
                 self.isLoadingPhotos = false
                 switch result {
@@ -140,8 +147,15 @@ final class GalleryViewController: UIViewController {
         
         isLoadingVideos = true
         
+        if videos.isEmpty {
+            LoadingHUD.showAnimation()
+        }
+        
         videosNetworkService.fetchItems() { [weak self] result in
             guard let self else { return }
+            
+            LoadingHUD.dismissAnimation()
+            
             DispatchQueue.main.async {
                 self.isLoadingVideos = false
                 switch result {
@@ -171,32 +185,24 @@ final class GalleryViewController: UIViewController {
     
     // MARK: Performig Batch Updates
     private func performPhotosBatchUpdate(with newPhotos: [Photo]) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            let startIndex = self.photos.count
-            self.photos.append(contentsOf: newPhotos)
-            let endIndex = self.photos.count - 1
-            let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
-            
-            self.photosCollectionView.performBatchUpdates({
-                self.photosCollectionView.insertItems(at: indexPaths)
-            }, completion: nil)
-        }
+        let startIndex = self.photos.count
+        self.photos.append(contentsOf: newPhotos)
+        let endIndex = self.photos.count - 1
+        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+        
+        self.photosCollectionView.performBatchUpdates({
+            self.photosCollectionView.insertItems(at: indexPaths)
+        }, completion: nil)
     }
     
     private func performVideosBatchUpdate(newVideos: [Video]) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            let startIndex = self.videos.count
-            self.videos.append(contentsOf: newVideos)
-            let endIndex = self.videos.count - 1
-            let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
-            self.videosCollectionView.performBatchUpdates({
-                self.videosCollectionView.insertItems(at: indexPaths)
-            }, completion: nil)
-        }
+        let startIndex = self.videos.count
+        self.videos.append(contentsOf: newVideos)
+        let endIndex = self.videos.count - 1
+        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+        self.videosCollectionView.performBatchUpdates({
+            self.videosCollectionView.insertItems(at: indexPaths)
+        }, completion: nil)
     }
     
     // MARK: - NetworkError Handling
@@ -213,20 +219,20 @@ final class GalleryViewController: UIViewController {
             return
         }
         
-            switch networkError {
-            case .dataTaskError:
-                message = "Failed to load data. Please check your internet connection and try again."
-                actions = [.reload]
-            case .responseError:
-                message = "Received an invalid response from the server. Please try again later."
-                actions = [.reload]
-            case .dataFetchError:
-                message = "Failed to fetch the data. Please try again."
-                actions = [.reload]
-            case .decodingError:
-                message = "Authorization token invalid or expired. Please relogin"
-                actions = [.relogin, .reload]
-            }
+        switch networkError {
+        case .dataTaskError:
+            message = "Failed to load data. Please check your internet connection and try again."
+            actions = [.reload]
+        case .responseError:
+            message = "Received an invalid response from the server. Please try again later."
+            actions = [.reload]
+        case .dataFetchError:
+            message = "Failed to fetch the data. Please try again."
+            actions = [.reload]
+        case .decodingError:
+            message = "Authorization token invalid or expired. Please relogin"
+            actions = [.relogin, .reload]
+        }
         
         showAlert(title: title, message: message, actions: actions)
     }
@@ -260,7 +266,7 @@ final class GalleryViewController: UIViewController {
             animations: nil,
             completion: nil
         )
-}
+    }
     
     // MARK: - Actions
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
