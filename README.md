@@ -77,14 +77,14 @@ The project was initially estimated to take 36 hours, broken down into specific 
 Upon completing the project, the actual time spent on each task was as follows:
 - **Project Setup and Repository Configuration**: 1 hour (as estimated)
 - **Adding OAuth Authorization Support**: 15 hours (11 hours over the estimate)
-- **Implementing Session Saving and Restoration**: 1 hours (1 hours under the estimate)
-- **Implementing the "Photos" Screen**: 3 hours (2 hour under the estimate)
-- **Implementing the "Videos" Screen**: 1 hours (4 hour under the estimate)
+- **Implementing Session Saving and Restoration**: 1 hours (1 hour under the estimate)
+- **Implementing the "Photos" Screen**: 3 hours (2 hours under the estimate)
+- **Implementing the "Videos" Screen**: 1 hours (4 hours under the estimate)
 - **Viewing and Saving Photos**: 4 hours (1 hour under the estimate)
-- **Viewing and Saving Videos**: 1 hours (4 hour under the estimate)
+- **Viewing and Saving Videos**: 1 hours (4 hours under the estimate)
 - **Implementing Logout Functionality**: 1 hour (as estimated)
 - **Implementing Light and Dark Themes**: 1 hour (1 hour under the estimate)
-- **Error Handling and Alerts Display**: 10 hours (7 hour over the estimate)
+- **Error Handling and Alerts Display**: 10 hours (7 hours over the estimate)
 - **Testing on Various Devices and iOS Versions**: 2 hours (1 hour under the estimate)
 
 **Total actual time: 40 hours**
