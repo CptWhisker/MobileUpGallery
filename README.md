@@ -103,6 +103,7 @@ The project exceeded the initial time estimate by 4 hours. The primary factors c
 
 3. User Experience:
     - Add custom loading animations via Core Animation or Lottie.
+    - Add stub image or label to be shown on screen if there is no photo or video data avaliable.
 
 ## Conclusion
 The MobileUpGallery project was successfully completed and now represents a feature-complete iOS app that meets the initial requirements. The time I spent working on the project provided me with valuable insights and experience in integrating external APIs, handling various error cases, writing generic functions, configuring app themes for both light and dark modes, and organizing and structuring my code. I believe that this project can serve as a foundation for the development of a more complex app with potential real-world implications. I’m grateful for the opportunity to work on this project.
