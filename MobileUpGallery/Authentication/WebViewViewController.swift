@@ -8,7 +8,9 @@ final class WebViewViewController: UIViewController {
     
     // MARK: - UI Elements
     private lazy var webView: WKWebView = {
-        let webView = WKWebView()
+        let webViewConfig = WKWebViewConfiguration()
+        webViewConfig.websiteDataStore = .nonPersistent()
+        let webView = WKWebView(frame: .zero, configuration: webViewConfig)
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView

@@ -392,7 +392,7 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if /*!photos.isEmpty && */collectionView == photosCollectionView {
+        if collectionView == photosCollectionView {
             if indexPath.item == photos.count - 6 {
                 loadPhotos()
             }
