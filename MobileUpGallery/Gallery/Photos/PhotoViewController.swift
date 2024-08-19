@@ -48,6 +48,10 @@ final class PhotoViewController: UIViewController {
         LoadingHUD.dismissAnimation()
     }
     
+    deinit {
+        cleanCache()
+    }
+    
     // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .main
@@ -157,6 +161,15 @@ final class PhotoViewController: UIViewController {
     // MARK: - Private Methods
     private func setShareButtonState(_ enabled: Bool) {
         shareButton?.isEnabled = enabled
+    }
+    
+    private func cleanCache() {
+        guard let photoString = photo.largeURL,
+              let imageURL = URL(string: photoString) else {
+            return
+        }
+        
+        ImageCache.default.removeImage(forKey: imageURL.absoluteString)
     }
     
     // MARK: - Actions
