@@ -1,13 +1,6 @@
 import UIKit
 
 final class GalleryViewController: UIViewController {
-    // MARK: - Mock Video
-    let mockVideo = Video(
-        title: "Анимированные vmoji в VK Звонках",
-        player: "https://vk.com/video_ext.php?oid=-22822305&id=456242110&hash=e037414127166efe&__ref=vk.api&api_hash=1677682946870d1f6fa590a9b323_HAZDCNJWG42DA",
-        image: [PreviewImage(url: "https://i.mycdn.me/getVideoPreview?id=3376734079543&idx=0&type=39&tkn=WK9Wdwpqr6z6g9umM95aW3Ch3QM&fn=vid_w")]
-    )
-    
     // MARK: - Properties
     private let testMode = false
     
@@ -194,20 +187,6 @@ final class GalleryViewController: UIViewController {
         }
     }
     
-    private func loadMockVideos() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            var mockVideos = [Video]()
-            
-            for _ in 0...5 {
-                mockVideos.append(self.mockVideo)
-            }
-            
-            self.performVideosBatchUpdate(newVideos: mockVideos)
-        }
-    }
-    
     // MARK: - Refreshing Page
     @objc private func refreshPhotos() {
         resetPhotosData()
@@ -220,15 +199,15 @@ final class GalleryViewController: UIViewController {
     }
     
     private func resetPhotosData() {
-            photos.removeAll()
-            photosNetworkService.resetOffset()
-            photosCollectionView.reloadData()
+        photos.removeAll()
+        photosNetworkService.resetOffset()
+        photosCollectionView.reloadData()
     }
     
     private func resetVideosData() {
-            videos.removeAll()
-            videosNetworkService.resetOffset()
-            videosCollectionView.reloadData()
+        videos.removeAll()
+        videosNetworkService.resetOffset()
+        videosCollectionView.reloadData()
     }
     
     // MARK: - Performig Batch Updates
@@ -331,11 +310,7 @@ final class GalleryViewController: UIViewController {
         videosCollectionView.isHidden = sender.selectedSegmentIndex != 1
         
         if sender.selectedSegmentIndex == 1 && videos.isEmpty {
-            if testMode {
-                loadMockVideos()
-            } else {
-                loadVideos()
-            }
+            loadVideos()
         }
     }
     
@@ -348,11 +323,7 @@ final class GalleryViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 0 {
             loadPhotos()
         } else {
-            if testMode {
-                loadMockVideos()
-            } else {
-                loadVideos()
-            }
+            loadVideos()
         }
     }
     
@@ -421,20 +392,17 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if !photos.isEmpty && collectionView == photosCollectionView {
+        if /*!photos.isEmpty && */collectionView == photosCollectionView {
             if indexPath.item == photos.count - 6 {
                 loadPhotos()
             }
         } else {
             if indexPath.item == videos.count - 5 {
-                if testMode {
-                    loadMockVideos()
-                } else {
-                    loadVideos()
-                }
+                loadVideos()
             }
         }
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == photosCollectionView {
