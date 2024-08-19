@@ -38,12 +38,12 @@ final class GalleryViewController: UIViewController {
         return collectionView
     }()
     
+    // Refresh control to handle reloading if error alert was dismissed
     private lazy var photosRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshPhotos), for: .valueChanged)
         return refreshControl
     }()
-    
     private lazy var videosRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshVideos), for: .valueChanged)
@@ -257,6 +257,7 @@ final class GalleryViewController: UIViewController {
             
         case NetworkServiceError.apiError(let code, let msg):
             switch code {
+                // Error code when there`s a problem with access token
             case 5:
                 message = "Authorization token invalid or expired. Please relogin."
                 actions = [.relogin]

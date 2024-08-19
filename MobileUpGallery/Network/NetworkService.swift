@@ -58,7 +58,7 @@ final class NetworkService<T: Decodable> {
             }
             
             do {
-                // attempt to decode for error
+                // Attempt to decode for error first to ensure access token is valid (error code 5)
                 if let errorResponse = try? self.decoder.decode(ErrorResponse.self, from: data) {
                     let errorCode = errorResponse.error.errorCode
                     let errorMessage = errorResponse.error.errorMsg
@@ -66,7 +66,7 @@ final class NetworkService<T: Decodable> {
                     return
                 }
                 
-                // attempt to decode for data
+                // Regular decoding flow
                 let decodedResponse = try self.decoder.decode(GenericResponse<T>.self, from: data)
                 
                 if self.totalItemsCount == nil {
