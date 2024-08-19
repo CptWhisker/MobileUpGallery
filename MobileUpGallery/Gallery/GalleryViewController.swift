@@ -2,8 +2,6 @@ import UIKit
 
 final class GalleryViewController: UIViewController {
     // MARK: - Properties
-    private let testMode = false
-    
     private var photos = [Photo]()
     private var videos = [Video]()
     private let photosNetworkService: NetworkService<Photo>
